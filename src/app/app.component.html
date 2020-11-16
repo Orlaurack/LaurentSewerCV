@@ -1,532 +1,216 @@
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * The content below * * * * * * * * * * * -->
-<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
-<!-- * * * * * * * * * * and can be replaced. * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * Delete the template below * * * * * * * * * * -->
-<!-- * * * * * * * to get started with your project! * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-
-<style>
-  :host {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-    font-size: 14px;
-    color: #333;
-    box-sizing: border-box;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    margin: 8px 0;
-  }
-
-  p {
-    margin: 0;
-  }
-
-  .spacer {
-    flex: 1;
-  }
-
-  .toolbar {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    background-color: #1976d2;
-    color: white;
-    font-weight: 600;
-  }
-
-  .toolbar img {
-    margin: 0 16px;
-  }
-
-  .toolbar #twitter-logo {
-    height: 40px;
-    margin: 0 16px;
-  }
-
-  .toolbar #twitter-logo:hover {
-    opacity: 0.8;
-  }
-
-  .content {
-    display: flex;
-    margin: 82px auto 32px;
-    padding: 0 16px;
-    max-width: 960px;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  svg.material-icons {
-    height: 24px;
-    width: auto;
-  }
-
-  svg.material-icons:not(:last-child) {
-    margin-right: 8px;
-  }
-
-  .card svg.material-icons path {
-    fill: #888;
-  }
-
-  .card-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-top: 16px;
-  }
-
-  .card {
-    border-radius: 4px;
-    border: 1px solid #eee;
-    background-color: #fafafa;
-    height: 40px;
-    width: 200px;
-    margin: 0 8px 16px;
-    padding: 16px;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    transition: all 0.2s ease-in-out;
-    line-height: 24px;
-  }
-
-  .card-container .card:not(:last-child) {
-    margin-right: 0;
-  }
-
-  .card.card-small {
-    height: 16px;
-    width: 168px;
-  }
-
-  .card-container .card:not(.highlight-card) {
-    cursor: pointer;
-  }
-
-  .card-container .card:not(.highlight-card):hover {
-    transform: translateY(-3px);
-    box-shadow: 0 4px 17px rgba(0, 0, 0, 0.35);
-  }
-
-  .card-container .card:not(.highlight-card):hover .material-icons path {
-    fill: rgb(105, 103, 103);
-  }
-
-  .card.highlight-card {
-    background-color: #1976d2;
-    color: white;
-    font-weight: 600;
-    border: none;
-    width: auto;
-    min-width: 30%;
-    position: relative;
-  }
-
-  .card.card.highlight-card span {
-    margin-left: 60px;
-  }
-
-  svg#rocket {
-    width: 80px;
-    position: absolute;
-    left: -10px;
-    top: -24px;
-  }
-
-  svg#rocket-smoke {
-    height: calc(100vh - 95px);
-    position: absolute;
-    top: 10px;
-    right: 180px;
-    z-index: -10;
-  }
-
-  a,
-  a:visited,
-  a:hover {
-    color: #1976d2;
-    text-decoration: none;
-  }
-
-  a:hover {
-    color: #125699;
-  }
-
-  .terminal {
-    position: relative;
-    width: 80%;
-    max-width: 600px;
-    border-radius: 6px;
-    padding-top: 45px;
-    margin-top: 8px;
-    overflow: hidden;
-    background-color: rgb(15, 15, 16);
-  }
-
-  .terminal::before {
-    content: "\2022 \2022 \2022";
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 4px;
-    background: rgb(58, 58, 58);
-    color: #c2c3c4;
-    width: 100%;
-    font-size: 2rem;
-    line-height: 0;
-    padding: 14px 0;
-    text-indent: 4px;
-  }
-
-  .terminal pre {
-    font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
-    color: white;
-    padding: 0 1rem 1rem;
-    margin: 0;
-  }
-
-  .circle-link {
-    height: 40px;
-    width: 40px;
-    border-radius: 40px;
-    margin: 8px;
-    background-color: white;
-    border: 1px solid #eeeeee;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-    transition: 1s ease-out;
-  }
-
-  .circle-link:hover {
-    transform: translateY(-0.25rem);
-    box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
-  }
-
-  footer {
-    margin-top: 8px;
-    display: flex;
-    align-items: center;
-    line-height: 20px;
-  }
-
-  footer a {
-    display: flex;
-    align-items: center;
-  }
-
-  .github-star-badge {
-    color: #24292e;
-    display: flex;
-    align-items: center;
-    font-size: 12px;
-    padding: 3px 10px;
-    border: 1px solid rgba(27,31,35,.2);
-    border-radius: 3px;
-    background-image: linear-gradient(-180deg,#fafbfc,#eff3f6 90%);
-    margin-left: 4px;
-    font-weight: 600;
-    font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
-  }
-
-  .github-star-badge:hover {
-    background-image: linear-gradient(-180deg,#f0f3f6,#e6ebf1 90%);
-    border-color: rgba(27,31,35,.35);
-    background-position: -.5em;
-  }
-
-  .github-star-badge .material-icons {
-    height: 16px;
-    width: 16px;
-    margin-right: 4px;
-  }
-
-  svg#clouds {
-    position: fixed;
-    bottom: -160px;
-    left: -230px;
-    z-index: -10;
-    width: 1920px;
-  }
-
-
-  /* Responsive Styles */
-  @media screen and (max-width: 767px) {
-
-    .card-container > *:not(.circle-link) ,
-    .terminal {
-      width: 100%;
-    }
-
-    .card:not(.highlight-card) {
-      height: 16px;
-      margin: 8px 0;
-    }
-
-    .card.highlight-card span {
-      margin-left: 72px;
-    }
-
-    svg#rocket-smoke {
-      right: 120px;
-      transform: rotate(-5deg);
-    }
-  }
-
-  @media screen and (max-width: 575px) {
-    svg#rocket-smoke {
-      display: none;
-      visibility: hidden;
-    }
-  }
-</style>
-
-<!-- Toolbar -->
-<div class="toolbar" role="banner">
-  <img
-    width="40"
-    alt="Angular Logo"
-    src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg=="
-  />
-  <span>Welcome</span>
-    <div class="spacer"></div>
-    <a aria-label="Angular on twitter" target="_blank" rel="noopener" href="https://twitter.com/angular" title="Twitter">
-      <svg id="twitter-logo" height="24" data-name="Logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
-        <rect width="400" height="400" fill="none"/>
-        <path d="M153.62,301.59c94.34,0,145.94-78.16,145.94-145.94,0-2.22,0-4.43-.15-6.63A104.36,104.36,0,0,0,325,122.47a102.38,102.38,0,0,1-29.46,8.07,51.47,51.47,0,0,0,22.55-28.37,102.79,102.79,0,0,1-32.57,12.45,51.34,51.34,0,0,0-87.41,46.78A145.62,145.62,0,0,1,92.4,107.81a51.33,51.33,0,0,0,15.88,68.47A50.91,50.91,0,0,1,85,169.86c0,.21,0,.43,0,.65a51.31,51.31,0,0,0,41.15,50.28,51.21,51.21,0,0,1-23.16.88,51.35,51.35,0,0,0,47.92,35.62,102.92,102.92,0,0,1-63.7,22A104.41,104.41,0,0,1,75,278.55a145.21,145.21,0,0,0,78.62,23" fill="#fff"/>
-      </svg>
-    </a>
-</div>
-
-<div class="content" role="main">
-
-  <!-- Highlight Card -->
-  <div class="card highlight-card card-small">
-
-    <svg id="rocket" alt="Rocket Ship" xmlns="http://www.w3.org/2000/svg" width="101.678" height="101.678" viewBox="0 0 101.678 101.678">
-      <g id="Group_83" data-name="Group 83" transform="translate(-141 -696)">
-        <circle id="Ellipse_8" data-name="Ellipse 8" cx="50.839" cy="50.839" r="50.839" transform="translate(141 696)" fill="#dd0031"/>
-        <g id="Group_47" data-name="Group 47" transform="translate(165.185 720.185)">
-          <path id="Path_33" data-name="Path 33" d="M3.4,42.615a3.084,3.084,0,0,0,3.553,3.553,21.419,21.419,0,0,0,12.215-6.107L9.511,30.4A21.419,21.419,0,0,0,3.4,42.615Z" transform="translate(0.371 3.363)" fill="#fff"/>
-          <path id="Path_34" data-name="Path 34" d="M53.3,3.221A3.09,3.09,0,0,0,50.081,0,48.227,48.227,0,0,0,18.322,13.437c-6-1.666-14.991-1.221-18.322,7.218A33.892,33.892,0,0,1,9.439,25.1l-.333.666a3.013,3.013,0,0,0,.555,3.553L23.985,43.641a2.9,2.9,0,0,0,3.553.555l.666-.333A33.892,33.892,0,0,1,32.647,53.3c8.55-3.664,8.884-12.326,7.218-18.322A48.227,48.227,0,0,0,53.3,3.221ZM34.424,9.772a6.439,6.439,0,1,1,9.106,9.106,6.368,6.368,0,0,1-9.106,0A6.467,6.467,0,0,1,34.424,9.772Z" transform="translate(0 0.005)" fill="#fff"/>
-        </g>
-      </g>
-    </svg>
-
-    <span>{{ title }} app is running!</span>
-
-    <svg id="rocket-smoke" alt="Rocket Ship Smoke" xmlns="http://www.w3.org/2000/svg" width="516.119" height="1083.632" viewBox="0 0 516.119 1083.632">
-      <path id="Path_40" data-name="Path 40" d="M644.6,141S143.02,215.537,147.049,870.207s342.774,201.755,342.774,201.755S404.659,847.213,388.815,762.2c-27.116-145.51-11.551-384.124,271.9-609.1C671.15,139.365,644.6,141,644.6,141Z" transform="translate(-147.025 -140.939)" fill="#f5f5f5"/>
-    </svg>
-
-  </div>
-
-  <!-- Resources -->
-  <h2>Resources</h2>
-  <p>Here are some links to help you get started:</p>
-
-  <div class="card-container">
-    <a class="card" target="_blank" rel="noopener" href="https://angular.io/tutorial">
-      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/></svg>
-
-      <span>Learn Angular</span>
-
-      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>    </a>
-
-    <a class="card" target="_blank" rel="noopener" href="https://angular.io/cli">
-      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg>
-
-      <span>CLI Documentation</span>
-
-      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
-    </a>
-
-    <a class="card" target="_blank" rel="noopener" href="https://blog.angular.io/">
-      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M13.5.67s.74 2.65.74 4.8c0 2.06-1.35 3.73-3.41 3.73-2.07 0-3.63-1.67-3.63-3.73l.03-.36C5.21 7.51 4 10.62 4 14c0 4.42 3.58 8 8 8s8-3.58 8-8C20 8.61 17.41 3.8 13.5.67zM11.71 19c-1.78 0-3.22-1.4-3.22-3.14 0-1.62 1.05-2.76 2.81-3.12 1.77-.36 3.6-1.21 4.62-2.58.39 1.29.59 2.65.59 4.04 0 2.65-2.15 4.8-4.8 4.8z"/></svg>
-
-      <span>Angular Blog</span>
-
-      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
-    </a>
-
-  </div>
-
-  <!-- Next Steps -->
-  <h2>Next Steps</h2>
-  <p>What do you want to do next with your app?</p>
-
-  <input type="hidden" #selection>
-
-  <div class="card-container">
-    <div class="card card-small" (click)="selection.value = 'component'" tabindex="0">
-        <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
-
-      <span>New Component</span>
-    </div>
-
-    <div class="card card-small" (click)="selection.value = 'material'" tabindex="0">
-        <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
-
-      <span>Angular Material</span>
-    </div>
-
-    <div class="card card-small" (click)="selection.value = 'pwa'" tabindex="0">
-        <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
-
-      <span>Add PWA Support</span>
-    </div>
-
-    <div class="card card-small" (click)="selection.value = 'dependency'" tabindex="0">
-      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
-
-      <span>Add Dependency</span>
-    </div>
-
-    <div class="card card-small" (click)="selection.value = 'test'" tabindex="0">
-      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
-
-      <span>Run and Watch Tests</span>
-    </div>
-
-    <div class="card card-small" (click)="selection.value = 'build'" tabindex="0">
-      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
-
-      <span>Build for Production</span>
-    </div>
-  </div>
-
-  <!-- Terminal -->
-  <div class="terminal" [ngSwitch]="selection.value">
-      <pre *ngSwitchDefault>ng generate component xyz</pre>
-      <pre *ngSwitchCase="'material'">ng add @angular/material</pre>
-      <pre *ngSwitchCase="'pwa'">ng add @angular/pwa</pre>
-      <pre *ngSwitchCase="'dependency'">ng add _____</pre>
-      <pre *ngSwitchCase="'test'">ng test</pre>
-      <pre *ngSwitchCase="'build'">ng build --prod</pre>
-  </div>
-
-  <!-- Links -->
-  <div class="card-container">
-    <a class="circle-link" title="Animations" href="https://angular.io/guide/animations" target="_blank" rel="noopener">
-      <svg id="Group_20" data-name="Group 20" xmlns="http://www.w3.org/2000/svg" width="21.813" height="23.453" viewBox="0 0 21.813 23.453">
-        <path id="Path_15" data-name="Path 15" d="M4099.584,972.736h0l-10.882,3.9,1.637,14.4,9.245,5.153,9.245-5.153,1.686-14.4Z" transform="translate(-4088.702 -972.736)" fill="#ffa726"/>
-        <path id="Path_16" data-name="Path 16" d="M4181.516,972.736v23.453l9.245-5.153,1.686-14.4Z" transform="translate(-4170.633 -972.736)" fill="#fb8c00"/>
-        <path id="Path_17" data-name="Path 17" d="M4137.529,1076.127l-7.7-3.723,4.417-2.721,7.753,3.723Z" transform="translate(-4125.003 -1058.315)" fill="#ffe0b2"/>
-        <path id="Path_18" data-name="Path 18" d="M4137.529,1051.705l-7.7-3.723,4.417-2.721,7.753,3.723Z" transform="translate(-4125.003 -1036.757)" fill="#fff3e0"/>
-        <path id="Path_19" data-name="Path 19" d="M4137.529,1027.283l-7.7-3.723,4.417-2.721,7.753,3.723Z" transform="translate(-4125.003 -1015.199)" fill="#fff"/>
-      </svg>
-    </a>
-
-    <a class="circle-link" title="CLI" href="https://cli.angular.io/" target="_blank" rel="noopener">
-      <svg alt="Angular CLI Logo" xmlns="http://www.w3.org/2000/svg" width="21.762" height="23.447" viewBox="0 0 21.762 23.447">
-        <g id="Group_21" data-name="Group 21" transform="translate(0)">
-          <path id="Path_20" data-name="Path 20" d="M2660.313,313.618h0l-10.833,3.9,1.637,14.4,9.2,5.152,9.244-5.152,1.685-14.4Z" transform="translate(-2649.48 -313.618)" fill="#37474f"/>
-          <path id="Path_21" data-name="Path 21" d="M2741.883,313.618v23.447l9.244-5.152,1.685-14.4Z" transform="translate(-2731.05 -313.618)" fill="#263238"/>
-          <path id="Path_22" data-name="Path 22" d="M2692.293,379.169h11.724V368.618h-11.724Zm11.159-.6h-10.608v-9.345h10.621v9.345Z" transform="translate(-2687.274 -362.17)" fill="#fff"/>
-          <path id="Path_23" data-name="Path 23" d="M2709.331,393.688l.4.416,2.265-2.28-2.294-2.294-.4.4,1.893,1.893Z" transform="translate(-2702.289 -380.631)" fill="#fff"/>
-          <rect id="Rectangle_12" data-name="Rectangle 12" width="3.517" height="0.469" transform="translate(9.709 13.744)" fill="#fff"/>
-        </g>
-      </svg>
-    </a>
-
-    <a class="circle-link" title="Augury" href="https://augury.rangle.io/" target="_blank" rel="noopener">
-      <svg alt="Angular Augury Logo" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="21.81" height="23.447" viewBox="0 0 21.81 23.447">
-        <defs>
-          <clipPath id="clip-path">
-            <rect id="Rectangle_13" data-name="Rectangle 13" width="10.338" height="10.27" fill="none"/>
-          </clipPath>
-        </defs>
-        <g id="Group_25" data-name="Group 25" transform="translate(0)">
-          <path id="Path_24" data-name="Path 24" d="M3780.155,311.417h0l-10.881,3.9,1.637,14.4,9.244,5.152,9.244-5.152,1.685-14.4Z" transform="translate(-3769.274 -311.417)" fill="#4a3493"/>
-          <path id="Path_25" data-name="Path 25" d="M3862.088,311.417v23.447l9.244-5.152,1.685-14.4Z" transform="translate(-3851.207 -311.417)" fill="#311b92"/>
-          <g id="Group_24" data-name="Group 24" transform="translate(6.194 6.73)" opacity="0.5">
-            <g id="Group_23" data-name="Group 23" transform="translate(0 0)">
-              <g id="Group_22" data-name="Group 22" clip-path="url(#clip-path)">
-                <path id="Path_26" data-name="Path 26" d="M3832.4,373.252a5.168,5.168,0,1,1-5.828-4.383,5.216,5.216,0,0,1,2.574.3,3.017,3.017,0,1,0,3.252,4.086Z" transform="translate(-3822.107 -368.821)" fill="#fff"/>
-              </g>
-            </g>
-          </g>
-          <path id="Path_27" data-name="Path 27" d="M3830.582,370.848a5.162,5.162,0,1,1-3.254-4.086,3.017,3.017,0,1,0,3.252,4.086Z" transform="translate(-3814.311 -359.969)" fill="#fff"/>
-        </g>
-      </svg>
-    </a>
-
-    <a class="circle-link" title="Protractor" href="https://www.protractortest.org/" target="_blank" rel="noopener">
-      <svg alt="Angular Protractor Logo" xmlns="http://www.w3.org/2000/svg" width="21.81" height="23.447" viewBox="0 0 21.81 23.447">
-        <g id="Group_26" data-name="Group 26" transform="translate(0)">
-          <path id="Path_28" data-name="Path 28" d="M4620.155,311.417h0l-10.881,3.9,1.637,14.4,9.244,5.152,9.244-5.152,1.685-14.4Z" transform="translate(-4609.274 -311.417)" fill="#e13439"/>
-          <path id="Path_29" data-name="Path 29" d="M4702.088,311.417v23.447l9.244-5.152,1.685-14.4Z" transform="translate(-4691.207 -311.417)" fill="#b52f32"/>
-          <path id="Path_30" data-name="Path 30" d="M4651.044,369.58v-.421h1.483a7.6,7.6,0,0,0-2.106-5.052l-1.123,1.123-.3-.3,1.122-1.121a7.588,7.588,0,0,0-4.946-2.055v1.482h-.421v-1.485a7.589,7.589,0,0,0-5.051,2.058l1.122,1.121-.3.3-1.123-1.123a7.591,7.591,0,0,0-2.106,5.052h1.482v.421h-1.489v1.734h15.241V369.58Zm-10.966-.263a4.835,4.835,0,0,1,9.67,0Z" transform="translate(-4634.008 -355.852)" fill="#fff"/>
-        </g>
-      </svg>
-    </a>
-
-    <a class="circle-link" title="Find a Local Meetup" href="https://www.meetup.com/find/?keywords=angular" target="_blank" rel="noopener">
-      <svg alt="Meetup Logo" xmlns="http://www.w3.org/2000/svg" width="24.607" height="23.447" viewBox="0 0 24.607 23.447">
-        <path id="logo--mSwarm" d="M21.221,14.95A4.393,4.393,0,0,1,17.6,19.281a4.452,4.452,0,0,1-.8.069c-.09,0-.125.035-.154.117a2.939,2.939,0,0,1-2.506,2.091,2.868,2.868,0,0,1-2.248-.624.168.168,0,0,0-.245-.005,3.926,3.926,0,0,1-2.589.741,4.015,4.015,0,0,1-3.7-3.347,2.7,2.7,0,0,1-.043-.38c0-.106-.042-.146-.143-.166a3.524,3.524,0,0,1-1.516-.69A3.623,3.623,0,0,1,2.23,14.557a3.66,3.66,0,0,1,1.077-3.085.138.138,0,0,0,.026-.2,3.348,3.348,0,0,1-.451-1.821,3.46,3.46,0,0,1,2.749-3.28.44.44,0,0,0,.355-.281,5.072,5.072,0,0,1,3.863-3,5.028,5.028,0,0,1,3.555.666.31.31,0,0,0,.271.03A4.5,4.5,0,0,1,18.3,4.7a4.4,4.4,0,0,1,1.334,2.751,3.658,3.658,0,0,1,.022.706.131.131,0,0,0,.1.157,2.432,2.432,0,0,1,1.574,1.645,2.464,2.464,0,0,1-.7,2.616c-.065.064-.051.1-.014.166A4.321,4.321,0,0,1,21.221,14.95ZM13.4,14.607a2.09,2.09,0,0,0,1.409,1.982,4.7,4.7,0,0,0,1.275.221,1.807,1.807,0,0,0,.9-.151.542.542,0,0,0,.321-.545.558.558,0,0,0-.359-.534,1.2,1.2,0,0,0-.254-.078c-.262-.047-.526-.086-.787-.138a.674.674,0,0,1-.617-.75,3.394,3.394,0,0,1,.218-1.109c.217-.658.509-1.286.79-1.918a15.609,15.609,0,0,0,.745-1.86,1.95,1.95,0,0,0,.06-1.073,1.286,1.286,0,0,0-1.051-1.033,1.977,1.977,0,0,0-1.521.2.339.339,0,0,1-.446-.042c-.1-.092-.2-.189-.307-.284a1.214,1.214,0,0,0-1.643-.061,7.563,7.563,0,0,1-.614.512A.588.588,0,0,1,10.883,8c-.215-.115-.437-.215-.659-.316a2.153,2.153,0,0,0-.695-.248A2.091,2.091,0,0,0,7.541,8.562a9.915,9.915,0,0,0-.405.986c-.559,1.545-1.015,3.123-1.487,4.7a1.528,1.528,0,0,0,.634,1.777,1.755,1.755,0,0,0,1.5.211,1.35,1.35,0,0,0,.824-.858c.543-1.281,1.032-2.584,1.55-3.875.142-.355.28-.712.432-1.064a.548.548,0,0,1,.851-.24.622.622,0,0,1,.185.539,2.161,2.161,0,0,1-.181.621c-.337.852-.68,1.7-1.018,2.552a2.564,2.564,0,0,0-.173.528.624.624,0,0,0,.333.71,1.073,1.073,0,0,0,.814.034,1.22,1.22,0,0,0,.657-.655q.758-1.488,1.511-2.978.35-.687.709-1.37a1.073,1.073,0,0,1,.357-.434.43.43,0,0,1,.463-.016.373.373,0,0,1,.153.387.7.7,0,0,1-.057.236c-.065.157-.127.316-.2.469-.42.883-.846,1.763-1.262,2.648A2.463,2.463,0,0,0,13.4,14.607Zm5.888,6.508a1.09,1.09,0,0,0-2.179.006,1.09,1.09,0,0,0,2.179-.006ZM1.028,12.139a1.038,1.038,0,1,0,.01-2.075,1.038,1.038,0,0,0-.01,2.075ZM13.782.528a1.027,1.027,0,1,0-.011,2.055A1.027,1.027,0,0,0,13.782.528ZM22.21,6.95a.882.882,0,0,0-1.763.011A.882.882,0,0,0,22.21,6.95ZM4.153,4.439a.785.785,0,1,0,.787-.78A.766.766,0,0,0,4.153,4.439Zm8.221,18.22a.676.676,0,1,0-.677.666A.671.671,0,0,0,12.374,22.658ZM22.872,12.2a.674.674,0,0,0-.665.665.656.656,0,0,0,.655.643.634.634,0,0,0,.655-.644A.654.654,0,0,0,22.872,12.2ZM7.171-.123A.546.546,0,0,0,6.613.43a.553.553,0,1,0,1.106,0A.539.539,0,0,0,7.171-.123ZM24.119,9.234a.507.507,0,0,0-.493.488.494.494,0,0,0,.494.494.48.48,0,0,0,.487-.483A.491.491,0,0,0,24.119,9.234Zm-19.454,9.7a.5.5,0,0,0-.488-.488.491.491,0,0,0-.487.5.483.483,0,0,0,.491.479A.49.49,0,0,0,4.665,18.936Z" transform="translate(0 0.123)" fill="#f64060"/>
-      </svg>
-    </a>
-
-    <a class="circle-link" title="Join the Conversation on Gitter" href="https://gitter.im/angular/angular" target="_blank" rel="noopener">
-      <svg alt="Gitter Logo" xmlns="http://www.w3.org/2000/svg" width="19.447" height="19.447" viewBox="0 0 19.447 19.447">
-        <g id="Group_40" data-name="Group 40" transform="translate(-1612 -405)">
-          <rect id="Rectangle_19" data-name="Rectangle 19" width="19.447" height="19.447" transform="translate(1612 405)" fill="#e60257"/>
-          <g id="gitter" transform="translate(1617.795 408.636)">
-            <g id="Group_33" data-name="Group 33" transform="translate(0 0)">
-              <rect id="Rectangle_15" data-name="Rectangle 15" width="1.04" height="9.601" transform="translate(2.304 2.324)" fill="#fff"/>
-              <rect id="Rectangle_16" data-name="Rectangle 16" width="1.04" height="9.601" transform="translate(4.607 2.324)" fill="#fff"/>
-              <rect id="Rectangle_17" data-name="Rectangle 17" width="1.04" height="4.648" transform="translate(6.91 2.324)" fill="#fff"/>
-              <rect id="Rectangle_18" data-name="Rectangle 18" width="1.04" height="6.971" transform="translate(0 0)" fill="#fff"/>
-            </g>
-          </g>
-        </g>
-      </svg>
-    </a>
-  </div>
-
-  <!-- Footer -->
-  <footer>
-      Love Angular?&nbsp;
-      <a href="https://github.com/angular/angular" target="_blank" rel="noopener"> Give our repo a star.
-        <div class="github-star-badge">
-            <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-          Star
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laurent Sewer Compétences</title>
+    <style>
+        body{
+            padding: 20px;
+            margin:0;
+            font-family: Noto Sans, sans-serif;
+            background-color: #104060;
+            color: #f0fff0;
+        }
+        .bar{
+            border-radius: 0px;
+            overflow: hidden;
+            margin: 8px 0;
+            background-color: #00000044;
+            margin-left: 43px;
+        }
+        .bar span{
+            width: 76px;
+            text-align: center;
+            display: inline-block;
+            background-color: #00000044;
+            color: #fff;
+            padding: 8px;
+            overflow-x: visible;
+            white-space: nowrap;
+            position: absolute;
+            font-weight: bold;
+            z-index: 2;
+        }
+        .bar svg{
+            position: absolute;
+            left: 20px;
+        }
+        .bar p{
+            display: inline-block;
+            float: right;
+            text-align: right;
+            margin:0;
+            padding: 8px;
+        }
+        .progression{
+            position: relative;
+            height: 35px;
+            z-index: -1;
+            border-radius: 0px;
+            margin-bottom: -35px;
+            z-index: 1;
+        }
+        b{
+            width: 100%;
+            text-align: center;
+            display: block;
+            margin-top: 20px;
+        }
+        .table{
+            display: flex;
+            flex-direction: row;
+        }
+        .table b{
+            padding:5px;
+            margin: 6px;
+            align-self: center;
+        }
+    </style>
+</head>
+<body>
+    <b>Languages de programmation</b>
+    <div class="bar" >
+        <div class="progression" style="background-color:#F16529; width:90%;">
         </div>
-      </a>
-      <a href="https://github.com/angular/angular" target="_blank" rel="noopener">
-        <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" fill="#1976d2"/><path d="M0 0h24v24H0z" fill="none"/></svg>
-      </a>
-  </footer>
+        <svg width="35" height="35" viewBox="0 0 166 186" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M15.7562 167.502L0.803123 0.387878H165.197L150.244 167.412L82.8641 186" fill="#E44D26"/>
+            <path d="M83 171.788V14.1035H150.198L137.375 156.674" fill="#F16529"/>
+            <path d="M31.3438 34.5416H83V55.0248H53.9094L55.8125 76.0043H83V96.4424H36.9625L31.3438 34.5416ZM37.8687 106.729H58.5312L59.9812 123.107L83 129.243V150.628L40.7688 138.898" fill="#EBEBEB"/>
+            <path d="M134.475 34.5416H82.9094V55.0248H132.572L134.475 34.5416ZM130.714 76.0043H82.9094V96.4875H108.284L105.883 123.107L82.9094 129.243V150.538L125.05 138.898" fill="white"/>
+        </svg>
+        <span>HTML 5</span>
+        <p>90%</p>
+    </div>
+    <div class="bar" >
+        <div class="progression" style="background-color:#3C9CD7; width:90%;">
+        </div>
+        <svg width="35" height="35" viewBox="0 0 170 191" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M153.789 172.21L84.999 190.664L16.2081 172.21L0.334106 0.867279H169.665L153.789 172.21Z" fill="#2062AF"/>
+            <path d="M84.9985 14.7457V175.945L85.154 175.987L140.823 161.052L153.672 14.7457H84.9985V14.7457Z" fill="#3C9CD7"/>
+            <path d="M84.9373 57.5883L35.7022 78.018L37.3349 98.245L84.9373 77.9667L135.574 56.3968L137.673 35.7054L84.9373 57.5883Z" fill="white"/>
+            <path d="M35.7017 78.018L37.3344 98.2449L84.9368 77.9667V57.5883L35.7017 78.018V78.018Z" fill="url(#paint0_linear)"/>
+            <path d="M137.673 35.7059L84.9374 57.5883V77.9667L135.574 56.3968L137.673 35.7059Z" fill="url(#paint1_linear)"/>
+            <path d="M35.7774 78.018L37.4107 98.245L110.45 98.477L108.817 125.446L84.7823 132.187L61.6783 126.375L60.2784 109.636H38.8106L41.611 141.952L85.0157 154.739L128.185 142.184L133.786 78.018H35.7774V78.018Z" fill="url(#paint2_linear)"/>
+            <path opacity="0.05" d="M84.9374 78.018H35.7022L37.335 98.245L84.9374 98.3964V78.018ZM84.9374 132.123L84.704 132.188L61.6031 126.376L60.2031 109.636H38.7359L41.5358 141.952L84.9374 154.739V132.123Z" fill="black"/>
+            <path d="M31.268 35.7059H137.673L135.574 56.3972H33.8346L31.268 35.7059V35.7059Z" fill="url(#paint3_linear)"/>
+            <path opacity="0.05" d="M84.9374 35.7059H31.268L33.8346 56.3972H84.9374V35.7059V35.7059Z" fill="black"/>
+            <defs>
+            <linearGradient id="paint0_linear" x1="60.3193" y1="98.2454" x2="60.3193" y2="57.5888" gradientUnits="userSpaceOnUse">
+            <stop offset="0.387" stop-color="#D1D3D4" stop-opacity="0"/>
+            <stop offset="1" stop-color="#D1D3D4"/>
+            </linearGradient>
+            <linearGradient id="paint1_linear" x1="111.305" y1="77.9672" x2="111.305" y2="35.7064" gradientUnits="userSpaceOnUse">
+            <stop offset="0.387" stop-color="#D1D3D4" stop-opacity="0"/>
+            <stop offset="1" stop-color="#D1D3D4"/>
+            </linearGradient>
+            <linearGradient id="paint2_linear" x1="35.7774" y1="116.379" x2="133.785" y2="116.379" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#E8E7E5"/>
+            <stop offset="1" stop-color="white"/>
+            </linearGradient>
+            <linearGradient id="paint3_linear" x1="31.268" y1="46.0516" x2="137.673" y2="46.0516" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#E8E7E5"/>
+            <stop offset="1" stop-color="white"/>
+            </linearGradient>
+            </defs>
+        </svg>
+        <span>CSS 3</span>
+        <p>90%</p>
+    </div>
+    <div class="bar" >
+        <div class="progression" style="background-color:#F7DF1E; width:80%;">
+        </div>
+        <svg width="35" height="35" viewBox="0 0 186 185" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M186 0H0V185H186V0Z" fill="#F7DF1E"/>
+            <path d="M124.945 144.532C128.691 150.616 133.566 155.089 142.187 155.089C149.429 155.089 154.055 151.489 154.055 146.514C154.055 140.553 149.302 138.442 141.33 134.974L136.961 133.109C124.348 127.765 115.97 121.069 115.97 106.915C115.97 93.8772 125.957 83.9518 141.567 83.9518C152.679 83.9518 160.669 87.7987 166.426 97.8709L152.815 106.563C149.819 101.218 146.586 99.113 141.567 99.113C136.447 99.113 133.203 102.343 133.203 106.563C133.203 111.778 136.45 113.89 143.949 117.12L148.319 118.981C163.169 125.315 171.554 131.773 171.554 146.291C171.554 161.943 159.192 170.517 142.591 170.517C126.359 170.517 115.872 162.823 110.741 152.74L124.945 144.532ZM63.2016 146.038C65.9473 150.884 68.4451 154.98 74.4502 154.98C80.1926 154.98 83.8152 152.745 83.8152 144.056V84.9444H101.293V144.291C101.293 162.292 90.6824 170.485 75.1942 170.485C61.1999 170.485 53.0956 163.282 48.9741 154.606L63.2016 146.038Z" fill="black"/>
+        </svg>
+        <span>JavaScript</span>
+        <p>80%</p>
+    </div>
+    <div class="bar" >
+        <div class="progression" style="background-color:#5A9FD4; width:75%;">
+        </div>
+        <span>Python</span>
+        <p>75%</p>
+    </div>
+    <div class="bar" >
+        <div class="progression" style="background-color:#3B009B; width:70%;">
+        </div>
+        <span>C#</span>
+        <p>70%</p>
+    </div>
+    <div class="bar" >
+        <div class="progression" style="background-color:#EA2D2E; width:60%;">
+        </div>
+        <svg width="35" height="35" viewBox="0 0 153 208" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M49.5591 160.194C49.5591 160.194 41.6659 164.799 55.1829 166.353C71.5609 168.227 79.9301 167.957 97.9731 164.539C97.9731 164.539 102.726 167.519 109.353 170.1C68.8924 187.475 17.7819 169.094 49.5591 160.194Z" fill="#0074BD"/>
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M44.6125 137.517C44.6125 137.517 35.7582 144.088 49.2853 145.489C66.782 147.3 80.5944 147.448 104.509 142.835C104.509 142.835 107.809 146.195 113.006 148.031C64.0938 162.371 9.61576 149.159 44.6125 137.517Z" fill="#0074BD"/>
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M86.2904 99.0445C96.2651 110.553 83.6748 120.901 83.6748 120.901C83.6748 120.901 108.988 107.806 97.3651 91.3998C86.5062 76.1073 78.1809 68.5107 123.252 42.3122C123.252 42.3122 52.5016 60.0187 86.2904 99.0445Z" fill="#EA2D2E"/>
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M139.802 176.97C139.802 176.97 145.646 181.798 133.367 185.532C110.018 192.62 36.1683 194.758 15.6565 185.815C8.28809 182.599 22.1123 178.14 26.4619 177.198C30.9971 176.215 33.5866 176.395 33.5866 176.395C25.3862 170.607 -19.4166 187.762 10.8318 192.682C93.3204 206.083 161.196 186.646 139.802 176.97Z" fill="#0074BD"/>
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M53.3578 114.018C53.3578 114.018 15.7982 122.962 40.0575 126.213C50.3039 127.587 70.7174 127.271 89.7462 125.671C105.293 124.363 120.895 121.566 120.895 121.566C120.895 121.566 115.417 123.921 111.451 126.634C73.3023 136.691 -0.3805 132.007 20.8349 121.726C38.7688 113.03 53.3578 114.018 53.3578 114.018Z" fill="#0074BD"/>
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M120.74 151.765C159.517 131.574 141.586 112.169 129.071 114.783C126.011 115.423 124.638 115.977 124.638 115.977C124.638 115.977 125.778 114.187 127.949 113.417C152.708 104.696 171.744 139.144 119.965 152.787C119.964 152.787 120.56 152.247 120.74 151.765Z" fill="#0074BD"/>
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M97.3655 0C97.3655 0 118.836 21.5323 76.995 54.6336C43.4411 81.1969 69.3445 96.3368 76.9831 113.644C57.3952 95.9318 43.0278 80.3377 52.6647 65.8264C66.8163 44.5282 106.026 34.1988 97.3655 0Z" fill="#EA2D2E"/>
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M57.1703 206.496C94.3834 208.881 151.544 205.169 152.897 187.519C152.897 187.519 150.297 194.21 122.14 199.519C90.3744 205.513 51.1867 204.815 27.9532 200.97C27.9532 200.97 32.713 204.919 57.1703 206.496Z" fill="#0074BD"/>
+        </svg>
+        <span>Java</span>
+        <p>60%</p>
+    </div>
+    <b>Frameworks</b>
+    <div class="bar" >
+        <div class="progression" style="background-color:#0868AC; width:90%;">
+        </div>
+        <svg width="35" height="35" viewBox="0 0 95 91" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5.9785 21.509C-2.3565 33.489 -1.3189 49.075 5.04832 61.804C5.1997 62.1092 5.35838 62.4095 5.51463 62.7098C5.61475 62.9002 5.70872 63.0955 5.81248 63.2835C5.8711 63.3957 5.93698 63.5057 5.99803 63.6131C6.10665 63.8157 6.21775 64.0086 6.33005 64.2063C6.52781 64.5555 6.73045 64.9021 6.93796 65.2488C7.05271 65.4393 7.16624 65.6297 7.28465 65.8201C7.51414 66.1912 7.74974 66.5574 7.99021 66.9236C8.09033 67.0799 8.18796 67.2361 8.2905 67.3875C8.62254 67.8831 8.96189 68.3763 9.3122 68.8621C9.3209 68.8746 9.33045 68.889 9.34145 68.9011C9.39645 68.9792 9.45745 69.0549 9.51357 69.133C9.81631 69.5505 10.1288 69.9631 10.445 70.3708C10.561 70.5197 10.6781 70.6687 10.7953 70.8176C11.0773 71.1716 11.3642 71.5232 11.6559 71.8747C11.7645 72.0065 11.8744 72.1384 11.9843 72.2678C12.3761 72.7292 12.7753 73.1882 13.183 73.6374C13.1905 73.6444 13.2001 73.6545 13.2073 73.6618C13.2245 73.6813 13.2391 73.6935 13.2537 73.713C13.6517 74.1475 14.0594 74.5723 14.472 74.9971C14.6002 75.129 14.7308 75.2608 14.8626 75.3902C15.1824 75.7125 15.5071 76.0299 15.8355 76.3448C15.9686 76.4718 16.1004 76.6012 16.2335 76.7232C16.6717 77.1358 17.1148 77.5411 17.5665 77.9366C17.574 77.9436 17.5798 77.9491 17.5872 77.9537C17.6641 78.0221 17.7435 78.0856 17.8192 78.1515C18.2171 78.4957 18.6224 78.8375 19.0301 79.1745C19.1961 79.3088 19.3645 79.4406 19.5318 79.5749C19.865 79.841 20.2019 80.1047 20.5413 80.3634C20.7207 80.5002 20.9002 80.6369 21.0808 80.7736C21.4556 81.0495 21.8328 81.3205 22.2136 81.5866C22.3528 81.6867 22.4871 81.7844 22.6262 81.8796C22.6652 81.9065 22.7007 81.9333 22.7397 81.9602C23.1011 82.2092 23.4709 82.4484 23.8396 82.6877C23.9983 82.7927 24.1558 82.9025 24.3157 83.0051C24.8821 83.364 25.4571 83.718 26.0381 84.0598C26.1956 84.1502 26.3555 84.238 26.5142 84.3283C26.9414 84.5749 27.3711 84.8166 27.8069 85.0534C28.0425 85.1804 28.2842 85.3 28.5222 85.4221C28.8298 85.5832 29.135 85.7468 29.4475 85.903C29.5182 85.9373 29.5915 85.9714 29.6611 86.0055C29.7869 86.0665 29.9138 86.1252 30.0395 86.1886C30.5241 86.4206 31.0124 86.6476 31.5056 86.8674C31.6106 86.9138 31.7119 86.9602 31.8157 87.0065C32.3809 87.2531 32.9509 87.4899 33.5259 87.717C33.6638 87.7731 33.803 87.8268 33.9422 87.8805C34.4744 88.0856 35.014 88.2883 35.556 88.4787C35.6243 88.5031 35.6902 88.5251 35.7586 88.5494C36.3531 88.7569 36.9537 88.9498 37.5579 89.1378C37.7019 89.1793 37.8472 89.2257 37.9925 89.2672C38.6077 89.4527 39.2157 89.6749 39.8504 89.7921C80.1604 97.1432 91.8694 65.5681 91.8694 65.5681C82.0354 78.3801 64.5794 81.7591 48.0404 77.9971C47.4141 77.8555 46.8063 77.6601 46.1947 77.4795C46.0396 77.4331 45.887 77.3868 45.7344 77.3403C45.1375 77.1572 44.5454 76.9644 43.9571 76.7617C43.8765 76.7325 43.7948 76.7031 43.713 76.6738C43.1857 76.4883 42.6644 76.2929 42.1456 76.0928C41.9991 76.0342 41.8526 75.978 41.7061 75.9194C41.1373 75.6948 40.5721 75.4604 40.0142 75.2163C39.8995 75.1674 39.7896 75.1162 39.6761 75.0674C39.1964 74.8501 38.7215 74.6304 38.2491 74.4033C38.1124 74.3374 37.9757 74.2739 37.8365 74.2056C37.4655 74.0246 37.0985 73.8315 36.7325 73.6435C36.4875 73.5145 36.2385 73.3926 35.9955 73.2576C35.5485 73.0186 35.1095 72.7695 34.6725 72.5155C34.5245 72.4325 34.3745 72.3525 34.2255 72.2665C33.6445 71.9245 33.0705 71.5705 32.5025 71.2115C32.3455 71.1115 32.1925 71.0046 32.0375 70.9016C31.6255 70.6356 31.2155 70.3645 30.8115 70.0865C30.6775 69.9955 30.5485 69.8985 30.4165 69.8085C30.0265 69.5325 29.6405 69.2536 29.2575 68.9706C29.0835 68.8416 28.9125 68.7116 28.7435 68.5826C28.3925 68.3136 28.0435 68.0425 27.6975 67.7645C27.5413 67.64 27.385 67.5155 27.2312 67.391C26.7917 67.0297 26.3572 66.6659 25.9287 66.2924C25.8836 66.2534 25.8347 66.2143 25.7859 66.1728C25.322 65.7651 24.8667 65.3476 24.4163 64.9277C24.2857 64.8032 24.1587 64.6811 24.0305 64.5566C23.6973 64.2392 23.3689 63.9194 23.0466 63.5922C22.9172 63.4628 22.7878 63.3359 22.6609 63.2065C22.2507 62.7866 21.8479 62.3617 21.4536 61.9297C21.4341 61.9077 21.4133 61.8882 21.3938 61.8662C20.9764 61.4096 20.5686 60.9433 20.1694 60.4722C20.0608 60.3428 19.9558 60.2183 19.8484 60.0913C19.5505 59.7324 19.2551 59.3687 18.967 59.0024C18.859 58.8704 18.751 58.7354 18.644 58.5994C18.297 58.1494 17.958 57.7004 17.626 57.2444C8.44375 44.7194 5.14505 27.4444 12.484 13.2574" fill="#0868AC"/>
+            <path d="M31.852 11.416C25.8242 20.0903 26.1513 31.702 30.8535 40.876C31.642 42.4141 32.5283 43.9058 33.5195 45.3267C34.4228 46.6206 35.4238 48.1612 36.6225 49.2012C37.057 49.6797 37.5111 50.146 37.975 50.605C38.0921 50.7246 38.2118 50.8394 38.3314 50.9566C38.7818 51.3936 39.2396 51.8233 39.7132 52.2408C39.7327 52.2554 39.7498 52.2749 39.7693 52.2897C39.7743 52.2947 39.7793 52.2967 39.7827 52.3022C40.3064 52.7612 40.8471 53.2031 41.3965 53.6376C41.5186 53.7303 41.6394 53.828 41.7627 53.9232C42.3133 54.3456 42.8748 54.7606 43.4509 55.1561C43.468 55.1686 43.4827 55.1805 43.4998 55.1927C43.7537 55.3685 44.0125 55.5321 44.2701 55.7005C44.3933 55.7811 44.5105 55.8666 44.6351 55.9422C45.0464 56.2059 45.4627 56.4623 45.8863 56.7088C45.9461 56.7454 46.0046 56.7772 46.0633 56.8113C46.4283 57.0213 46.7981 57.2288 47.1693 57.429C47.2986 57.5022 47.4305 57.5657 47.5623 57.6341C47.8187 57.7683 48.075 57.9051 48.3362 58.0345C48.3752 58.054 48.4156 58.0711 48.4534 58.0883C48.9844 58.3495 49.5203 58.601 50.0672 58.8402C50.1843 58.8915 50.3052 58.9378 50.4236 58.9867C50.8606 59.1723 51.3025 59.3529 51.7468 59.5238C51.9348 59.5946 52.1252 59.663 52.3132 59.7313C52.716 59.8803 53.1201 60.017 53.5278 60.1537C53.7121 60.2123 53.8928 60.2733 54.0771 60.3295C54.6569 60.5101 55.2294 60.7372 55.8337 60.8373C86.9567 65.9935 94.1417 42.0313 94.1417 42.0313C87.6647 51.3599 75.1217 55.8103 61.7367 52.3363C61.1422 52.18 60.5563 52.0091 59.974 51.826C59.7958 51.7723 59.6212 51.7138 59.4442 51.6551C59.0304 51.5208 58.619 51.3792 58.2113 51.2303C58.0246 51.1619 57.8378 51.0936 57.6547 51.0228C57.2079 50.8519 56.766 50.6737 56.3278 50.4881C56.2082 50.4368 56.0873 50.3905 55.9701 50.3368C55.4208 50.0975 54.88 49.8461 54.3466 49.5824C54.0719 49.4481 53.8022 49.3065 53.5324 49.1673C53.3761 49.0868 53.2187 49.0062 53.0624 48.9256C52.7157 48.7377 52.3715 48.5423 52.0321 48.3446C51.9516 48.2982 51.8673 48.2542 51.7855 48.2054C51.3644 47.9588 50.9493 47.7049 50.5379 47.4437C50.411 47.3631 50.2889 47.2753 50.162 47.1922C49.891 47.0165 49.62 46.8382 49.3539 46.6576C48.7801 46.2621 48.2223 45.847 47.6718 45.4271C47.5448 45.3269 47.4179 45.2293 47.2933 45.1292C41.4343 40.5032 36.7903 34.1822 34.5823 27.0142C32.2683 19.5802 32.7673 11.2352 36.7763 4.46322" fill="#0868AC"/>
+            <path d="M53.613 3.875C50.0595 9.1045 49.7104 15.599 52.1762 21.375C54.7763 27.5054 60.1047 32.315 66.3232 34.595C66.5795 34.6903 66.8359 34.7757 67.0959 34.8635C67.2094 34.8977 67.3217 34.9369 67.4365 34.9709C67.8027 35.0857 68.1665 35.2199 68.5449 35.2907C85.7299 38.611 90.3909 26.4723 91.6319 24.6857C87.5487 30.5646 80.6869 31.9758 72.2679 29.9324C71.6029 29.7704 70.8719 29.5303 70.2309 29.3033C69.4089 29.0103 68.5989 28.6764 67.8119 28.2984C66.3169 27.5804 64.8919 26.7084 63.5709 25.7104C56.0369 19.9943 51.3569 9.08935 56.2729 0.208351" fill="#0868AC"/>
+            </svg>
 
-  <svg id="clouds" alt="Gray Clouds Background" xmlns="http://www.w3.org/2000/svg" width="2611.084" height="485.677" viewBox="0 0 2611.084 485.677">
-    <path id="Path_39" data-name="Path 39" d="M2379.709,863.793c10-93-77-171-168-149-52-114-225-105-264,15-75,3-140,59-152,133-30,2.83-66.725,9.829-93.5,26.25-26.771-16.421-63.5-23.42-93.5-26.25-12-74-77-130-152-133-39-120-212-129-264-15-54.084-13.075-106.753,9.173-138.488,48.9-31.734-39.726-84.4-61.974-138.487-48.9-52-114-225-105-264,15a162.027,162.027,0,0,0-103.147,43.044c-30.633-45.365-87.1-72.091-145.206-58.044-52-114-225-105-264,15-75,3-140,59-152,133-53,5-127,23-130,83-2,42,35,72,70,86,49,20,106,18,157,5a165.625,165.625,0,0,0,120,0c47,94,178,113,251,33,61.112,8.015,113.854-5.72,150.492-29.764a165.62,165.62,0,0,0,110.861-3.236c47,94,178,113,251,33,31.385,4.116,60.563,2.495,86.487-3.311,25.924,5.806,55.1,7.427,86.488,3.311,73,80,204,61,251-33a165.625,165.625,0,0,0,120,0c51,13,108,15,157-5a147.188,147.188,0,0,0,33.5-18.694,147.217,147.217,0,0,0,33.5,18.694c49,20,106,18,157,5a165.625,165.625,0,0,0,120,0c47,94,178,113,251,33C2446.709,1093.793,2554.709,922.793,2379.709,863.793Z" transform="translate(142.69 -634.312)" fill="#eee"/>
-  </svg>
-
-</div>
-
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * The content above * * * * * * * * * * * -->
-<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
-<!-- * * * * * * * * * * and can be replaced. * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * End of Placeholder * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-
-
+        <span>Jquery</span>
+        <p>90%</p>
+    </div>
+    <div class="bar" >
+        <div class="progression" style="background-color:#CD6799; width:85%;">
+        </div>
+        <svg width="35" height="35" viewBox="0 0 250 187" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M215.27 107.499C206.548 107.545 198.968 109.64 192.62 112.737C190.292 108.137 187.963 104.038 187.552 101.032C187.095 97.5246 186.547 95.3839 187.095 91.1938C187.643 87.0036 190.109 81.0372 190.063 80.5817C190.018 80.1262 189.515 77.9856 184.492 77.9401C179.469 77.8945 175.131 78.8965 174.629 80.2173C174.127 81.5382 173.168 84.5441 172.529 87.6412C171.661 92.1958 162.483 108.455 157.231 116.972C155.542 113.648 154.081 110.733 153.761 108.41C153.304 104.903 152.756 102.762 153.304 98.5721C153.852 94.3819 156.318 88.4155 156.272 87.9601C156.227 87.5046 155.724 85.364 150.701 85.3184C145.678 85.2729 141.34 86.2749 140.838 87.5957C140.336 88.9165 139.788 92.0136 138.738 95.0196C137.687 98.0256 125.495 125.171 122.299 132.185C120.655 135.783 119.239 138.652 118.235 140.61C118.235 140.61 118.189 140.747 118.052 140.975C117.184 142.66 116.682 143.571 116.682 143.571C116.682 143.571 116.682 143.571 116.682 143.616C115.997 144.846 115.267 145.985 114.901 145.985C114.627 145.985 114.125 142.706 114.993 138.242C116.819 128.814 121.157 114.149 121.111 113.648C121.111 113.374 121.933 110.824 118.28 109.503C114.719 108.182 113.44 110.368 113.12 110.368C112.801 110.368 112.572 111.143 112.572 111.143C112.572 111.143 116.545 94.6552 104.992 94.6552C97.7775 94.6552 87.8228 102.535 82.8912 109.64C79.7861 111.325 73.1649 114.923 66.087 118.794C63.3929 120.297 60.6074 121.8 58.0046 123.212C57.8219 123.03 57.6393 122.802 57.4566 122.62C43.4836 107.727 17.6381 97.2057 18.734 77.2113C19.145 69.9241 21.6565 50.7951 68.3702 27.5669C106.819 8.66563 137.413 13.9033 142.71 25.5174C150.29 42.0959 126.317 72.8845 86.5899 77.348C71.4296 79.0332 63.4842 73.2034 61.475 71.0172C59.3745 68.7399 59.0548 68.6033 58.2786 69.0587C57 69.7419 57.8219 71.7915 58.2786 72.9756C59.4658 76.0727 64.3518 81.5382 72.6169 84.2253C79.923 86.5937 97.6861 87.9145 119.194 79.6253C143.258 70.334 162.072 44.5098 156.546 22.8758C151.021 0.922918 114.49 -6.31879 79.923 5.93291C59.3745 13.2202 37.0907 24.6976 21.0628 39.6365C2.02116 57.3991 -0.992624 72.839 0.24029 79.3064C4.66965 102.261 36.4058 117.2 49.1002 128.268C48.4609 128.632 47.8673 128.951 47.365 129.224C41.0178 132.367 16.8161 144.983 10.7886 158.328C3.93903 173.449 11.8845 184.288 17.1358 185.746C33.4376 190.255 50.1961 182.148 59.1918 168.757C68.1875 155.367 67.0916 137.969 62.9362 129.998C62.8906 129.907 62.8449 129.816 62.7536 129.725C64.3975 128.769 66.087 127.767 67.7309 126.81C70.973 124.897 74.1694 123.121 76.9092 121.664C75.3567 125.899 74.2151 130.955 73.6672 138.242C72.9822 146.805 76.4983 157.918 81.1103 162.29C83.1652 164.203 85.5853 164.248 87.1379 164.248C92.5262 164.248 94.9463 159.785 97.6405 154.502C100.928 148.034 103.896 140.519 103.896 140.519C103.896 140.519 100.198 160.833 110.244 160.833C113.897 160.833 117.595 156.096 119.239 153.682C119.239 153.727 119.239 153.727 119.239 153.727C119.239 153.727 119.331 153.591 119.513 153.272C119.879 152.68 120.107 152.316 120.107 152.316C120.107 152.316 120.107 152.27 120.107 152.225C121.568 149.674 124.856 143.89 129.742 134.28C136.043 121.891 142.117 106.406 142.117 106.406C142.117 106.406 142.665 110.186 144.537 116.471C145.633 120.161 147.916 124.214 149.742 128.131C148.281 130.181 147.368 131.319 147.368 131.319C147.368 131.319 147.368 131.319 147.414 131.365C146.226 132.913 144.948 134.598 143.532 136.238C138.555 142.159 132.619 148.945 131.797 150.904C130.838 153.226 131.066 154.912 132.893 156.278C134.217 157.28 136.591 157.417 139.012 157.28C143.487 156.961 146.637 155.868 148.19 155.185C150.61 154.32 153.441 152.999 156.09 151.04C160.976 147.442 163.944 142.296 163.67 135.509C163.533 131.775 162.3 128.04 160.793 124.533C161.25 123.895 161.661 123.258 162.117 122.62C169.834 111.37 175.816 99.0276 175.816 99.0276C175.816 99.0276 176.364 102.808 178.236 109.093C179.15 112.281 181.022 115.743 182.666 119.113C175.405 124.988 170.93 131.82 169.332 136.284C166.455 144.573 168.693 148.308 172.94 149.173C174.857 149.583 177.597 148.672 179.606 147.807C182.164 146.987 185.177 145.575 188.054 143.48C192.94 139.882 197.643 134.872 197.369 128.085C197.233 124.988 196.411 121.937 195.269 118.976C201.434 116.426 209.379 115.014 219.516 116.198C241.252 118.749 245.544 132.276 244.723 137.969C243.901 143.662 239.334 146.759 237.827 147.716C236.32 148.672 235.818 148.991 235.955 149.674C236.138 150.676 236.868 150.63 238.147 150.448C239.928 150.129 249.563 145.848 249.974 135.373C250.659 121.982 237.873 107.362 215.27 107.499ZM47.5933 163.884C40.3785 171.718 30.3325 174.678 25.9945 172.173C21.3368 169.486 23.1634 157.918 32.0221 149.628C37.4104 144.573 44.3512 139.882 48.9632 137.012C50.0135 136.375 51.566 135.464 53.4382 134.325C53.7579 134.143 53.9405 134.052 53.9405 134.052C54.3058 133.824 54.6711 133.596 55.0365 133.369C58.2786 145.211 55.1734 155.64 47.5933 163.884ZM100.106 128.268C97.5948 134.371 92.3435 149.993 89.1471 149.127C86.4073 148.399 84.7177 136.557 88.5991 124.852C90.5626 118.976 94.718 111.962 97.1382 109.23C101.065 104.857 105.403 103.4 106.454 105.176C107.778 107.499 101.659 124.442 100.106 128.268ZM143.441 148.945C142.391 149.492 141.386 149.856 140.929 149.583C140.61 149.401 141.386 148.672 141.386 148.672C141.386 148.672 146.82 142.842 148.966 140.201C150.199 138.652 151.66 136.83 153.213 134.781C153.213 134.963 153.213 135.191 153.213 135.373C153.213 142.341 146.455 147.032 143.441 148.945ZM176.867 141.339C176.09 140.793 176.227 138.971 178.83 133.278C179.835 131.046 182.209 127.311 186.273 123.713C186.73 125.171 187.05 126.582 187.004 127.903C186.958 136.694 180.657 139.973 176.867 141.339Z" fill="#CD6799"/>
+        </svg>
+        <span>Sass</span>
+        <p>85%</p>
+    </div>
+    <div class="bar" >
+        <div class="progression" style="background-color:#E23237; width:70%;">
+        </div>
+        <svg width="35" height="35" viewBox="0 0 131 139" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M0 23L64.5 0L130.7 22.6L120 107.9L64.5 138.6L9.9 108.3L0 23Z" fill="#E23237"/>
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M130.7 22.6L64.5 0V138.6L120 107.9L130.7 22.6Z" fill="#B52E31"/>
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M64.6 16.2L24.4 105.6L39.4 105.3L47.5 85.1H64.6H83.4L92.2 105.5L106.5 105.8L64.6 16.2ZM64.7 44.9L78.3 73.3H65.3H64.6H52.8L64.7 44.9Z" fill="white"/>
+        </svg>
+        <span>Angular</span>
+        <p>70%</p>
+    </div>
+    <div class="bar" >
+        <div class="progression" style="background-color:#563D7C; width:65%;">
+        </div>
+        <svg width="35" height="35" viewBox="0 0 166 166" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M166 138.333C166 153.55 153.55 166 138.333 166H27.6667C12.45 166 0 153.55 0 138.333V27.6667C0 12.45 12.45 0 27.6667 0H138.333C153.55 0 166 12.45 166 27.6667V138.333Z" fill="#563D7C"/>
+            <path d="M45.1075 36.0752H92.168C100.848 36.0752 107.819 38.0553 113.054 42.0425C118.289 46.0298 120.92 52.0242 120.92 60.0801C120.92 64.9624 119.726 69.1396 117.339 72.6115C114.952 76.0834 111.535 78.7958 107.086 80.6945V80.9657C113.054 82.2406 117.583 85.0615 120.648 89.4285C123.713 93.8226 125.26 99.3017 125.26 105.92C125.26 109.717 124.581 113.271 123.225 116.553C121.869 119.862 119.753 122.71 116.851 125.097C113.949 127.484 110.26 129.382 105.73 130.793C101.2 132.203 95.8298 132.909 89.5912 132.909H45.1075V36.0752ZM62.0602 76.6258H89.7268C93.7955 76.6258 97.186 75.4866 99.8984 73.154C102.611 70.8213 103.967 67.5121 103.967 63.1723C103.967 58.2899 102.746 54.8451 100.305 52.8651C97.8641 50.885 94.3379 49.8814 89.7268 49.8814H62.0602V76.6258ZM62.0602 119.075H92.0324C97.186 119.075 101.2 117.746 104.021 115.061C106.869 112.403 108.307 108.605 108.307 103.723C108.307 98.9219 106.896 95.2602 104.021 92.6562C101.146 90.0523 97.186 88.8046 92.0324 88.8046H62.0602V119.075Z" fill="white"/>
+        </svg>
+        <span>Bootstrap</span>
+        <p>65%</p>
+    </div>
+    <div class="bar" >
+        <div class="progression" style="background-color:#689F63; width:40%;">
+        </div>
+        <span>Node Js</span>
+        <p>40%</p>
+    </div>
+    <b>Logiciels</b>
+    <div class="table">
+        <b style="color:#3C99D4">Visual Studio Code</b>
+        <b style="color:#FFD02F">Miro</b>
+        <b style="color:#F05133">Git</b>
+        <b style="color:#0ACF83">Figma</b>
+        <b style="color:#E01E5A">Slack</b>
+    </div>
+</body>
+</html>
