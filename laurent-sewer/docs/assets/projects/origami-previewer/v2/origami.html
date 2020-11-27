@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Origami Previewer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="origami.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="icon.png" />
+    <script src="jquery.js"></script>
+</head>
+<body>
+    <div id="content">
+        <div id="color_option_zone">
+            <fieldset>
+                <legend>1 colors :</legend>
+                <label data-value="unic1">unicolor</label>
+            </fieldset>
+            <fieldset>
+                <legend>2 colors :</legend>
+                <label data-value="grad2">dégradé</label>
+                <label data-value="rand2">aléatoire</label>
+                <label data-value="line2">1 ligne</label>
+            </fieldset>
+            <fieldset>
+                <legend>3 colors :</legend>
+                <label data-value="grad3">dégradé</label>
+                <label data-value="rand3">aléatoire</label>
+                <label data-value="dgra3">dégradé double</label>
+            </fieldset>
+            <fieldset>
+                <legend>4 colors :</legend>
+                <label data-value="grad4">dégradé</label>
+                <label data-value="rand4">aléatoire</label>
+                <label data-value="line4">2 lignes</label>
+            </fieldset>
+            <fieldset>
+                <legend>5 colors :</legend>
+                <label data-value="grad5">dégradé</label>
+                <label data-value="rand5">aléatoire</label>
+                <label class="checked" data-value="mixe5">mélange</label>
+                <label data-value="zone5">zones</label>
+            </fieldset>
+            <fieldset>
+                <legend>6 colors :</legend>
+                <label data-value="grad6">dégradé</label>
+                <label data-value="rand6">aléatoire</label>
+            </fieldset>
+            <fieldset>
+                <legend>7 colors :</legend>
+                <label data-value="line7">3 lignes</label>
+            </fieldset> 
+            <fieldset>
+                <legend>8 colors :</legend>
+                <label data-value="grad8">dégradé</label>
+            </fieldset> 
+            <fieldset>
+                <legend>9 colors :</legend>
+                <label data-value="zone9">zones</label>
+            </fieldset> 
+            <fieldset>
+                <legend>10 colors :</legend>
+                <label data-value="rand10">aléatoire</label>
+                <label data-value="mixe10">mélange</label>
+                <label data-value="grad10">dégradé</label>
+            </fieldset>
+            <fieldset>
+                <legend>15 colors :</legend>
+                <label data-value="mixe15">mélange</label>
+            </fieldset>
+            <fieldset>
+                <legend>30 colors :</legend>
+                <label data-value="rand30">aléatoire</label>
+            </fieldset>
+        </div>
+        <div id="color_zone">
+            <div class="colors"><button id="color1" data-num="0">#ff0000</button><label class="color_label" for="color1">0</label></div> 
+            <div class="colors"><button id="color2" data-num="1">#ffff00</button><label class="color_label" for="color2">0</label></div>
+            <div class="colors"><button id="color3" data-num="2">#00ff00</button><label class="color_label" for="color3">0</label></div>
+            <div class="colors"><button id="color4" data-num="3">#00ffff</button><label class="color_label" for="color4">0</label></div>
+            <div class="colors"><button id="color5" data-num="4">#0000ff</button><label class="color_label" for="color5">0</label></div>
+            <div class="colors"><button id="color6" data-num="5">#ff00ff</button><label class="color_label" for="color6">0</label></div>
+            <div class="colors"><button id="color7" data-num="6">#880000</button><label class="color_label" for="color7">0</label></div>
+            <div class="colors"><button id="color8" data-num="7">#888800</button><label class="color_label" for="color8">0</label></div>
+            <div class="colors"><button id="color9" data-num="8">#008800</button><label class="color_label" for="color9">0</label></div>
+            <div class="colors"><button id="color10" data-num="9">#008888</button><label class="color_label" for="color10">0</label></div>
+            <div class="colors"><button id="color11" data-num="10">#000088</button><label class="color_label" for="color11">0</label></div>
+            <div class="colors"><button id="color12" data-num="11">#880088</button><label class="color_label" for="color12">0</label></div>
+            <div class="colors"><button id="color13" data-num="12">#88ff00</button><label class="color_label" for="color13">0</label></div>
+            <div class="colors"><button id="color14" data-num="13">#8888ff</button><label class="color_label" for="color14">0</label></div>
+            <div class="colors"><button id="color15" data-num="14">#0088ff</button><label class="color_label" for="color15">0</label></div>
+            <div class="colors"><button id="color16" data-num="15">#ff8888</button><label class="color_label" for="color16">0</label></div>
+            <div class="colors"><button id="color17" data-num="16">#ff0088</button><label class="color_label" for="color17">0</label></div>
+            <div class="colors"><button id="color18" data-num="17">#88ff88</button><label class="color_label" for="color18">0</label></div>
+            <div class="colors"><button id="color19" data-num="18">#ff8800</button><label class="color_label" for="color19">0</label></div>
+            <div class="colors"><button id="color20" data-num="19">#00ff88</button><label class="color_label" for="color20">0</label></div>
+            <div class="colors"><button id="color21" data-num="20">#8800ff</button><label class="color_label" for="color21">0</label></div>
+            <div class="colors"><button id="color22" data-num="21">#ffff88</button><label class="color_label" for="color22">0</label></div>
+            <div class="colors"><button id="color23" data-num="22">#ff88ff</button><label class="color_label" for="color23">0</label></div>
+            <div class="colors"><button id="color24" data-num="23">#88ffff</button><label class="color_label" for="color24">0</label></div>
+            <div class="colors"><button id="color25" data-num="24">#88bb44</button><label class="color_label" for="color25">0</label></div>
+            <div class="colors"><button id="color26" data-num="25">#bb4488</button><label class="color_label" for="color26">0</label></div>
+            <div class="colors"><button id="color27" data-num="26">#8844bb</button><label class="color_label" for="color27">0</label></div>
+            <div class="colors"><button id="color28" data-num="27">#4488bb</button><label class="color_label" for="color28">0</label></div>
+            <div class="colors"><button id="color29" data-num="28">#ffffff</button><label class="color_label" for="color29">0</label></div>
+            <div class="colors"><button id="color30" data-num="29">#888888</button><label class="color_label" for="color30">0</label></div>
+        </div>
+        <div id="icosaedre_zone">
+            <svg  id="svg" width="500" height="500" >
+            </svg>
+        </div>
+        <div id="parametres">
+            <input type="button" id="left_view" value="<" onclick="changeRotation(-1)"><input type="button" id="right_view" value=">" onclick="changeRotation(1)">
+            <div id="x_div"><label class="range_label">x</label><input type="range" data-value="x" id="x" min="0" max="360" value="0"><label class="range_value" data-labelfor="x"></label></div>
+            <div id="y_div"><label class="range_label">y</label><input type="range" data-value="y" id="y" min="0" max="360" value="0"><label class="range_value" data-labelfor="y"></label></div>
+            <div id="z_div"><label class="range_label">z</label><input type="range" data-value="z" id="z" min="0" max="360" value="0"><label class="range_value" data-labelfor="z"></label></div>
+            <div id="range_div"><label class="range_label">taille</label><input type="range" data-value="size" id="size" min="1" max="100" value="50"><label class="range_value" data-labelfor="size"></label></div>
+            <div id="color_background_div"><input type="color" id="color_background" value="#000000" onchange="changeColor(this)"><label id="color_background_label" for="color_background">couleur de fond</label></div>
+            
+        </div> 
+        <div id="select_color">
+            <button>#000000</button>
+            <button>#000000</button>
+            <button>#000000</button>
+            <button>#000000</button>
+            <button>#99dd33</button>
+            <button>#33ddcc</button>
+            <button>#3388bb</button>
+            <button>#8822aa</button>
+            <button>#dd2222</button>
+            <button>#ff7799</button>
+            <button>#ffaabb</button>
+            <button>#eeeeee</button>
+            <button>#eeee88</button>
+            <button>#eedd22</button>
+            <button>#ddaa22</button>
+            <button>#ee8822</button>
+            <button>#005511</button>
+            <button>#66dd22</button>
+            <button>#dd1100</button>
+            <button>#dd4400</button>
+            <button>#000000</button>
+            <button>#000000</button>
+            <button>#000000</button>
+            <button>#000000</button>
+            <button>#000000</button>
+            <button>#000000</button>
+            <button>#000000</button>
+            <button>#000000</button>
+            <button>#000000</button>
+            <button>#000000</button>
+            <button>#00000000</button>
+            <button>#00000088</button>
+            <button>#000000</button>
+        </div>
+    </div>
+</body>
+<script src="3D.js"></script>
+<script src="origami.js"></script>
+</html>
+

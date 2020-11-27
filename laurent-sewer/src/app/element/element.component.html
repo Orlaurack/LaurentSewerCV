@@ -1,0 +1,8 @@
+<div class="container" [class.opened]="toggleViewDescritpion" [class.have_description]="description!==undefined" (click)="click()">
+  <img class="logo" src="../assets/svg/{{image}}.svg" alt="">
+  <span class="name" [style.background]="bkcolor" [style.color]="fgcolor">{{name}}</span>
+  <svg class="arrow" width="20" height="10" viewBox="0 0 6 3" xmlns="http://www.w3.org/2000/svg">
+      <path d="M6 0L3 2.5L0 0H6Z"/>
+  </svg>
+</div>
+<div *ngIf="toggleViewDescritpion" class="description" [class.opened]="toggleViewDescritpion">{{description}}</div>

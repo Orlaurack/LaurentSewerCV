@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Menu</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        *{
+            margin: 0;
+        }
+        iframe{
+            width: 100%;
+            height: 100vh;
+        }
+        #menu {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            background-color: #f1f1f1;
+            position: fixed;
+            overflow: auto;
+        }
+
+        #menu button:hover {
+            color: #ddd ;
+            background-color: #555;
+        }
+        #menu button {
+            min-width: calc(100% / 6);
+            display: inline;
+            text-align: center;
+            color: #fff;
+            padding: 8px 16px;
+            text-decoration: none;
+            background-color: #000;
+            border:0;
+        }
+
+        #menu button:active {
+            color: #555;
+            background-color:#ddd ;
+        }
+
+        body{
+            
+            overflow:hidden;
+        }
+    </style>
+    <script></script>
+</head>
+<body>
+    
+    <div id="menu">
+        <button class="menu_item" onclick="openPage('echec', this)" >echec
+        </button><button class="menu_item" onclick="openPage('demineur', this)">demineur
+        </button><button class="menu_item" onclick="openPage('color', this)">color
+        </button><button class="menu_item" onclick="openPage('mastermind', this)">mastermind
+        </button><button class="menu_item" onclick="openPage('pendu', this)">pendu
+        </button><button class="menu_item" onclick="openPage('chicken_clicker', this)">chicken clicker</button>
+    </div>
+        
+    <script src="jquery.js"></script>
+    <script src="daynightbackground.js"></script>
+    <script>
+        window.onload = codeAddress;
+        function codeAddress(){
+            var DNC = [{r:255,g:0,b:0},{r:255,g:255,b:0},{r:0, g:255 ,b:0},{r:0, g:0 ,b:255}];
+            var SMC = ["ff0000","ffff00","00ff00","0000ff"];
+            var MC = ["00f0f0","00d0d0","00b0b0","009090","007070","005050"];
+            initializeColors(DNC, SMC, MC);
+        }
+
+        function openPage(pagename, element){
+           var myPage = window.open("./"+pagename+".html","_top")
+        }
+        </script>
+    </body>
+</html>

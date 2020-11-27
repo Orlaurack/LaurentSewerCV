@@ -10,4 +10,4 @@
   </svg>
 </div>
 
-<div *ngIf="description!==undefined" class="description" [class.opened]="toggleViewDescritpion">{{description}}</div>
+<div *ngIf="toggleViewDescritpion" class="description" [class.opened]="toggleViewDescritpion">{{description}}<br><ng-content></ng-content></div>

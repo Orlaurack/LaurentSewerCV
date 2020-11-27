@@ -1,3 +1,5 @@
+@import '../styles.scss';
+
 :host{
   padding: 20px;
   margin:0;
@@ -12,14 +14,104 @@ b{
   width: 100%;
   text-align: center;
   display: block;
-  margin-top: 20px;
+  margin: 50px 0 20px;
 }
-.table{
+.logiciels{
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  width:100%;
+  flex-wrap: wrap;
+}
+#contacts{
   display: flex;
   flex-direction: row;
+  justify-content: center;
+  gap: 10%;
+  flex-wrap: wrap;
 }
-.table b{
-  padding:5px;
-  margin: 6px;
-  align-self: center;
+.title{
+  margin: 20px auto;
+  height: auto;
+  display: block;
+  width: calc(80% - 20px);
+  max-width: 1000px;
+  fill: #00B0D0;
+  filter: drop-shadow(0 10px 0 #0008);
+  transition: 500ms;
+  &:hover{
+    filter: drop-shadow(0 30px 0 #0004);
+    transform: scale(120%);
+  }
+}
+.sub_title{
+  margin: 20px auto;
+  height: auto;
+  display: block;
+  width: calc(12% - 40px);
+  min-width: 40px;
+  max-width: 1000px;
+  fill: #00B0D0;
+  filter: drop-shadow(0 5px 0 #000);
+}
+#first_infos{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #ffffff;
+  a{
+    gap: 20px;
+    padding: 20px 0;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    width: auto;
+    background-color: #104060;
+    svg{
+      height: 30px;
+      width: auto;
+      display: block;
+      margin: 0 auto;
+      fill: #00B0D0;
+    }
+    span{
+      color: #ffffff;
+    }
+  }
+  @media (min-width: 768px) {
+    flex-direction: row;
+    a{
+      width: 33.33%;
+    }
+    a:nth-child(2){
+      margin: 0 2px;
+    }
+  }
+}
+#photo{
+  display: block;
+  margin: 30px auto;
+  max-width: 200px;
+  width: calc(100% - 50px);
+}
+.projects{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 10%;
+  flex-wrap: wrap;
+  .project{
+    width: 280px;
+    span{
+      text-align: center;
+      margin: 20px 0;
+      display: block;
+      width: 100%;
+    }
+    img{
+      display: block;
+      width: 280px;
+    }
+  }
 }

@@ -1,0 +1,18 @@
+
+<div class="element" [class.inversed]="inversed" [class.first]="first" [class.active]="active" [class.haveDescription]="haveDescritpion">
+  <div class="date">
+    <span>{{startDate}}</span>
+    <span>{{endDate}}</span>
+  </div>
+  <p>
+    <span (click)="active=!active" class="title">
+      {{title}}
+    </span>
+    <svg (click)="active=!active" *ngIf="!active && haveDescritpion" class="arrow" width="20" height="10" viewBox="0 0 6 3" xmlns="http://www.w3.org/2000/svg">
+      <path d="M6 0L3 2.5L0 0H6Z"/>
+    </svg>
+    <span *ngIf="active" class="description">
+      <ng-content></ng-content>
+    </span>
+  </p>
+</div>

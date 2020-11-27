@@ -20,13 +20,17 @@ export class CompetenceComponent implements OnInit {
 
   constructor() {
     this.toggleViewDescritpion = false;
-    if (this.fgcolor === undefined){this.fgcolor = this.color; }
+    if (this.fgcolor === undefined) {
+      this.fgcolor = this.color;
+    }
   }
 
   ngOnInit(): void {
   }
 
   click(){
+    if (this.description !== undefined) {
     this.toggleViewDescritpion = !this.toggleViewDescritpion;
+    }
   }
 }

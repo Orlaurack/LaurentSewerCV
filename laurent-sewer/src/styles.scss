@@ -1,5 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
 body{
   margin: 0;
-  display: grid;
+}
+
+a{
+  text-decoration: none;
+  color: #1070A0;
+  border: 1px solid transparent;
+  transition: 200ms;
+  &:hover{
+    color: #10A0C0;
+    border-color: #10A0C0;
+  }
 }

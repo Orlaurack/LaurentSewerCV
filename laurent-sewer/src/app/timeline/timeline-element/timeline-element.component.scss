@@ -1,0 +1,123 @@
+@import '../../../styles.scss';
+
+.element{
+  display: flex;
+  flex-direction: row;
+  &.haveDescription{
+    .title, svg{
+      cursor: pointer;
+    }
+  }
+  svg{
+    fill: white;
+    opacity: 0;
+    transition: 200ms;
+    display: block;
+    width: 100%;
+    padding: 5px 0;
+    height: 0;
+  }
+  &:hover svg{
+    opacity: 1;
+    height: 10px;
+  }
+  .description{
+    display: block;
+    padding-top: 10px;
+    animation: animation-in-left 400ms ease-in-out;
+  }
+  .date, p{
+    border: solid white 0;
+    margin: 0;
+    flex: 1 1 0;
+    padding: 10px;
+  }
+  .date{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: #00B0D0;
+    min-height: 50px;
+    border-bottom-width: 1px;
+  }
+  p{
+    padding: 20px 10px;
+  }
+}
+.element{
+  p{
+    border-left-width: 2px;
+  }
+  .date{
+    text-align: right;
+    border-right-width: 2px;
+    background: linear-gradient(to left, #00B0D010, transparent);
+  }
+  &.first{
+     div, p{
+       border-top:solid 25px #104060;
+     }
+  }
+}
+
+.element.inversed{
+
+  p{
+    border-right-width: 2px;
+    border-left-width: 0;
+    .title{
+      float: right;
+    }
+  }
+  .date{
+    border-left-width: 2px;
+    border-right-width: 0;
+    text-align: left;
+    background: linear-gradient(to right, #00B0D010, transparent);
+  }
+
+  display: flex;
+  flex-direction: row-reverse;
+  .description{
+    animation: animation-in 400ms ease-in-out ;
+  }
+}
+
+
+@keyframes animation-in {
+  0% {
+    -webkit-transform: translateX(-800px) rotateY(30deg) scale(0);
+            transform: translateX(-800px) rotateY(30deg) scale(0);
+    -webkit-transform-origin: -100% 50%;
+            transform-origin: -100% 50%;
+    opacity: 0;
+    max-height: 0;
+  }
+  100% {
+    -webkit-transform: translateX(0) rotateY(0) scale(1);
+    transform: translateX(0) rotateY(0) scale(1);
+    -webkit-transform-origin: 1500px 50%;
+    transform-origin: 1500px 50%;
+    opacity: 1;
+    max-height: 3000px;
+  }
+}
+
+@keyframes animation-in-left {
+  0% {
+    -webkit-transform: translateX(800px) rotateY(30deg) scale(0);
+            transform: translateX(800px) rotateY(30deg) scale(0);
+    -webkit-transform-origin: 100% -50%;
+            transform-origin: 100% -50%;
+    opacity: 0;
+    max-height: 0;
+  }
+  100% {
+    -webkit-transform: translateX(0) rotateY(0) scale(1);
+            transform: translateX(0) rotateY(0) scale(1);
+    -webkit-transform-origin: -1000px -50%;
+            transform-origin: -1000px -50%;
+    opacity: 1;
+    max-height: 3000px;
+  }
+}

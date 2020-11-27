@@ -1,0 +1,14 @@
+<div class="container" [style.background]="bkcolor" [style.color]="fgcolor" [class.flipped]="toggleFlipped" (click)="toggleFlipped = !toggleFlipped">
+  <div class="front">
+    <img class="photo" src="../../assets/png/{{image}}.png" alt="{{name}}">
+    <b [style.color]="color">{{name}}</b>
+  </div>
+  <div class="back">
+      <b [style.color]="color">{{name}}</b>
+      <a href="{{website}}"><img class="company_logo" src="../assets/png/{{logo}}.png" alt="{{logo}}" (click)="toggleFlipped = false"></a>
+      <span class="role">{{role}}</span>
+      <p class="item">Numéro <span>{{phone}}</span></p>
+      <p class="item">Email <span>{{mail}}</span></p>
+      <p class="item">Linkedin <a class="link" href="{{linkedin}}" target="_blank" (click)="toggleFlipped = false"><img class="logo" src="../assets/svg/linkedin.svg"></a></p>
+  </div>
+</div>

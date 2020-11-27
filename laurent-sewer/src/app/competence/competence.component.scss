@@ -1,7 +1,9 @@
+@import '../../styles.scss';
+
 .container {
   display: flex;
   flex-direction: row;
-  margin: 5px 0;
+  margin: 10px 0;
   gap: 10px;
 
 
@@ -68,15 +70,35 @@
   }
 }
 .description{
-  max-height: 0px;
   background-color: #00000044;
   overflow-y: hidden;
   padding: 0px 8px;
-  margin: 5px 0;
   text-align: justify;
+
+  animation: animation-in 800ms ease-in-out ;
+  margin: 0;
+  padding: 0;
   &.opened{
-    transition: 2000ms max-height;
-    max-height: 1000px;
     padding: 8px;
+    margin: 5px 0;
+  }
+}
+
+@keyframes animation-in {
+  0% {
+    -webkit-transform: translateX(-800px) rotateY(30deg) scale(0);
+            transform: translateX(-800px) rotateY(30deg) scale(0);
+    -webkit-transform-origin: -100% 50%;
+            transform-origin: -100% 50%;
+    opacity: 0;
+    max-height: 0;
+  }
+  100% {
+    -webkit-transform: translateX(0) rotateY(0) scale(1);
+            transform: translateX(0) rotateY(0) scale(1);
+    -webkit-transform-origin: 1800px 50%;
+            transform-origin: 1800px 50%;
+    opacity: 1;
+    max-height: 3000px;
   }
 }

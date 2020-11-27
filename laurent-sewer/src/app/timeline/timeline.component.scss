@@ -1,0 +1,33 @@
+@import '../../styles.scss';
+
+:host{
+  margin: 20px 0;
+  display: flex;
+  flex-direction: column;
+}
+b{
+  display: block;
+  width: auto;
+  margin: 0 auto;
+  padding: 10px 40px;
+}
+a{
+  margin: 5px auto;
+  padding: 10px 60px;
+  display: inline-block;
+  margin-left: 50%;
+  transform: translate(-50%, 0);
+}
+
+.element:nth-child(2) p{
+  border-top-width: 0;
+}
+.element:last-child{
+  border-bottom: white solid 1px;
+}
+
+svg{
+  display: block;
+  margin: 5px auto -50px;
+  z-index: 2;
+}
