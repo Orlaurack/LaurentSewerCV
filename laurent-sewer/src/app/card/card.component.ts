@@ -20,10 +20,17 @@ export class CardComponent implements OnInit {
   @Input() phone: string;
   @Input() mail: string;
   @Input() website: string;
+  formatedPhone: string;
   toggleFlipped: boolean;
-  constructor() { this.toggleFlipped = false; }
+  constructor() {
+    this.toggleFlipped = false;
+
+  }
 
   ngOnInit(): void {
+    if (this.phone !== undefined && this.phone.length > 0){
+      this.formatedPhone = '+41' + (this.phone.replace(/\s/g, '')).substring(1);
+    }
   }
 
 }

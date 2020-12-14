@@ -7,8 +7,8 @@
       <b [style.color]="color">{{name}}</b>
       <a href="{{website}}"><img class="company_logo" src="../assets/png/{{logo}}.png" alt="{{logo}}" (click)="toggleFlipped = false"></a>
       <span class="role">{{role}}</span>
-      <p class="item">Numéro <span>{{phone}}</span></p>
-      <p class="item">Email <span>{{mail}}</span></p>
+      <p class="item">Numéro <a class="link" href="tel:{{formatedPhone}}" (click)="toggleFlipped = false">{{phone}}</a></p>
+      <p class="item">Email <a class="link" href="mailto:{{mail}}" (click)="toggleFlipped = false">{{mail}}</a></p>
       <p class="item">Linkedin <a class="link" href="{{linkedin}}" target="_blank" (click)="toggleFlipped = false"><img class="logo" src="../assets/svg/linkedin.svg"></a></p>
   </div>
 </div>

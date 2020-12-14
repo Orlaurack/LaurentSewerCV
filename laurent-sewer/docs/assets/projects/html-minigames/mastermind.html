@@ -1,0 +1,320 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Master-mind</title>
+    <style>
+			
+		.centeralign{
+			border:0;
+			display:inline-block;
+			margin-left: auto;
+			margin-right: auto;
+		}
+	
+        body {
+			margin: 0 auto; 
+			background-color: #cacaca;
+            text-align: center;
+        }
+
+        .ball_emplacement {
+            width: 60px;
+            height: 60px;
+            padding: 10px;
+        }
+
+        #solution {
+            position: fixed;
+            top: 10px;
+        }
+
+        span {
+            margin: 0;
+			display: inline-flex;
+        }
+
+        #solution th {
+            height: 80px;
+            width: 80px;
+            margin: 10px;
+            padding: 0;
+        }
+
+        #solution,
+        #solution td,
+        #table,
+        #table td,
+        #ball_emplacement {
+            background-color: #ffffff88;
+            border-collapse: collapse;
+            padding: 0;
+        }
+		
+        #solution th,
+        #table td,
+		#ball_emplacement{
+			border: 1px solid black;
+		}
+        #ball_emplacement {
+			display:block;
+            height: 60px;
+            width: 450px;
+            padding: 10px;
+        }
+
+        #table {
+            margin-top: 100px;
+        }
+
+        #solution,
+        #solution th {
+            margin: 0;
+        }
+
+        .checkTable {
+            border: 0;
+            width: 80px;
+            height: 80px;
+            margin: 0px;
+        }
+
+        .checkTable td {
+            width: 60px;
+            height: 60px;
+            padding: 10px;
+
+        }
+    </style>
+   
+</head>
+
+<body width="100%">
+  
+    <table class="centeralign" id="solution">
+        <tr>
+            <th id="r1">?</th>
+            <th id="r2">?</th>
+            <th id="r3">?</th>
+            <th id="r4">?</th>
+        </tr>
+    </table>
+    <table class="centeralign" id="table">
+        <tr>
+            <td>
+                <div class="ball_emplacement" id="box1_1" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            </td>
+            <td>
+                <div class="ball_emplacement" id="box2_1" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            </td>
+            <td>
+                <div class="ball_emplacement" id="box3_1" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            </td>
+            <td>
+                <div class="ball_emplacement" id="box4_1" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            </td>
+            <td id="test_1"><button class="test" onclick="testSolution(event)">tester</button></td>
+        </tr>
+    </table>  
+    <div class="centeralign" id="ball_emplacement" class="source">
+        <span draggable="true" ondragstart="drag(event)" id="drag_red">
+            <svg version="1.0" class="source" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1 1" height="60px">
+                <circle class="source" cx="50%" cy="50%" r="50%" fill="red" />
+            </svg>
+        </span>
+        <span draggable="true" ondragstart="drag(event)" id="drag_orange">
+            <svg version="1.0" class="source" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1 1" height="60px">
+                <circle class="source" cx="50%" cy="50%" r="50%" fill="orange" />
+            </svg>
+        </span>
+        <span draggable="true" ondragstart="drag(event)" id="drag_yellow">
+            <svg version="1.0" class="source" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1 1" height="60px">
+                <circle class="source" cx="50%" cy="50%" r="50%" fill="yellow" />
+            </svg>
+        </span>
+        <span draggable="true" ondragstart="drag(event)" id="drag_green">
+            <svg version="1.0" class="source" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1 1" height="60px">
+                <circle class="source" cx="50%" cy="50%" r="50%" fill="green" />
+            </svg>
+        </span>
+        <span draggable="true" ondragstart="drag(event)" id="drag_blue">
+            <svg version="1.0" class="source" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1 1" height="60px">
+                <circle class="source" cx="50%" cy="50%" r="50%" fill="blue" />
+            </svg>
+        </span>
+        <span draggable="true" ondragstart="drag(event)" id="drag_purple">
+            <svg version="1.0" class="source" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1 1" height="60px">
+                <circle class="source" cx="50%" cy="50%" r="50%" fill="purple" />
+            </svg>
+        </span>
+        <span draggable="true" ondragstart="drag(event)" id="drag_gray">
+            <svg version="1.0" class="source" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1 1" height="60px">
+                <circle class="source" cx="50%" cy="50%" r="50%" fill="gray" />
+            </svg>
+        </span>
+    </div> 
+<script src="daynightbackground.js"></script><script>
+window.onload = codeAddress;
+function codeAddress(){
+    var DNC = [{r:0,g:0,b:0},{r:100, g:20 ,b:0},{r:50, g:60 ,b:100},{r:128,g:128,b:128}];
+    var SMC = ["ffff00","ff8800","bbbbbb","888888"];
+    var MC = ["8899AA","445566","BBCCDD","667788","DDEEFF","8899AA"];
+    initializeColors(DNC, SMC, MC);
+}
+
+        var base;
+        var i = 0;
+        var lvl = 1;
+        var solution = [rngcolor(), rngcolor(), rngcolor(), rngcolor()];
+        var event ;
+
+
+        function allowDrop(ev) { 
+            if(!ev.target.classList.contains("disabled")){  
+                ev.preventDefault();
+            }
+        }
+        function rngcolor() {
+            var colors = ["red", "blue", "green", "yellow", "gray", "purple", "orange"];
+            var rng = Math.floor(Math.random() * colors.length);
+            return colors[rng];
+        }
+        function drag(ev) {
+            if(!ev.target.classList.contains("disabled")){    
+                event = ev;
+                base = ev.srcElement.parentElement.id;
+                ev.dataTransfer.setData("text", ev.target.id);
+            }
+        }
+        function drop(ev) {
+            ev.preventDefault();
+            if (!ev.target.classList.contains("disabled")){    
+                var data = ev.dataTransfer.getData("text");
+
+                if (ev.target.className["baseVal"] == "source" || ev.target.className == "source") {
+                    console.log("stop");
+                    return 0;
+                }
+                if (base == "ball_emplacement") {
+                    base = null
+                    var clone = document.getElementById(data).cloneNode(true);
+                    clone.id += i;
+                    clone.children[0].children[0].classList.remove("source");
+                    clone.children[0].classList.remove("source");
+                    clone.classList.remove("source");
+                    i++;
+                    var clonetext = clone.outerHTML;
+
+                    if (ev.target.nodeName == "circle") {
+                        ev.target.parentElement.replaceChild(clone.children[0].children[0], ev.target);
+                    } else if (ev.target.nodeName == "svg") {
+                        ev.target.parentElement.replaceChild(clone.children[0], ev.target);
+                    } else {
+                        ev.target.innerHTML = clonetext;
+                    }
+                } else {
+                    if (ev.target.nodeName == "circle") {
+                        ev.target.parentElement.replaceChild(document.getElementById(data).children[0].children[0], ev.target);
+                    } else if (ev.target.nodeName == "svg") {
+                        ev.target.parentElement.replaceChild(document.getElementById(data).children[0], ev.target);
+                    } else {
+                        ev.target.appendChild(document.getElementById(data));
+                    }
+                }
+            }
+        }
+        function testSolution() {
+            box = [document.getElementById("box1_" + lvl), document.getElementById("box2_" + lvl), document.getElementById("box3_" + lvl), document.getElementById("box4_" + lvl)];
+            if (box[0].children.length > 0 && box[1].children.length > 0 && box[2].children.length > 0 && box[3].children.length > 0 && box[0].children[0].children.length > 0 && box[1].children[0].children.length > 0 && box[2].children[0].children.length > 0 && box[3].children[0].children.length > 0) {
+                box[0] = box[0].children[0].children[0].children[0].attributes.fill.value;
+                box[1] = box[1].children[0].children[0].children[0].attributes.fill.value;
+                box[2] = box[2].children[0].children[0].children[0].attributes.fill.value;
+                box[3] = box[3].children[0].children[0].children[0].attributes.fill.value;
+                var white = 0;
+                var black = 0;
+                var locks = [];
+                var lockd = [];
+
+                for (let i = 0; i < box.length; i++) {
+                    if (box[i] == solution[i]) {
+                        white++;
+                        locks.push(i);
+                        lockd.push(i);
+                    }
+                }
+                for (let i = 0; i < box.length; i++) {
+                    if (locks.indexOf(i) == -1) {
+                        
+                        if ((box[i] == solution[((i + 1) % box.length)]) && (lockd.indexOf(((i + 1) % box.length)) == -1)){
+                            black++;
+                            locks.push(i);
+                            lockd.push((i + 1) % box.length);
+                        }else if ((box[i] == solution[((i + 2) % box.length)]) && (lockd.indexOf(((i + 2) % box.length)) == -1)){
+                            black++;                            
+                            locks.push(i);
+                            lockd.push((i + 2) % box.length);
+                        }else if ((box[i] == solution[((i + 3) % box.length)]) && (lockd.indexOf(((i + 3) % box.length)) == -1)){
+                            black++;
+                            locks.push(i);
+                            lockd.push((i + 3) % box.length);
+                        }
+                    } 
+                }
+                generateCheckDiv(white, black);
+                if (white != 4) {
+                    next_turn();
+                } else {
+                    winMessage();
+                }
+
+            }
+        }
+        function removeListeners() {
+            for(var n=0;n<args.length;n+=2) {
+                yourElement.removeEventListener(args[n], args[n+1]);
+            }
+        }
+        function next_turn() {
+            lvl++;
+            blockEmplacement();
+            document.getElementById("table").innerHTML += "<tr>" +
+                "<td><div class=\"ball_emplacement\" id=\"box1_" + lvl + "\" ondrop=\"drop(event)\" ondragover=\"allowDrop(event)\"></div></td>" +
+                "<td><div class=\"ball_emplacement\" id=\"box2_" + lvl + "\" ondrop=\"drop(event)\" ondragover=\"allowDrop(event)\"></div></td>" +
+                "<td><div class=\"ball_emplacement\" id=\"box3_" + lvl + "\" ondrop=\"drop(event)\" ondragover=\"allowDrop(event)\"></div></td>" +
+                "<td><div class=\"ball_emplacement\" id=\"box4_" + lvl + "\" ondrop=\"drop(event)\" ondragover=\"allowDrop(event)\"></div></td>" +
+                "<td id=\"test_" + lvl + "\"><button class=\"test\" onclick=\"testSolution()\" >tester</button></td></tr>";
+
+        } 
+        function blockEmplacement(){
+              var allemplacement = document.getElementsByClassName("ball_emplacement");console.log(allemplacement);
+            for (let i = 0; i < allemplacement.length; i++) {
+               allemplacement[i].classList.add("disabled");
+               allemplacement[i].children[0].classList.add("disabled");
+               allemplacement[i].children[0].children[0].classList.add("disabled");
+               allemplacement[i].children[0].children[0].children[0].classList.add("disabled");
+            }
+        } 
+        function winMessage() {
+            blockEmplacement();
+            document.getElementById("table").innerHTML += "<tr><td colspan=\"5\"><span style=\"color:green;font-size:15pt;\">Vous avez gagné en " + lvl + " coups !</span></td></tr>";
+            document.getElementById("r1").innerHTML="<svg version=\"1.0\" class=\"source\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 1 1\" height=\"70px\"><circle class=\"source\" cx=\"50%\" cy=\"50%\" r=\"50%\" fill=\""+solution[0]+"\"/></svg></th></tr>";
+            document.getElementById("r2").innerHTML="<svg version=\"1.0\" class=\"source\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 1 1\" height=\"70px\"><circle class=\"source\" cx=\"50%\" cy=\"50%\" r=\"50%\" fill=\""+solution[1]+"\"/></svg></th></tr>";
+            document.getElementById("r3").innerHTML="<svg version=\"1.0\" class=\"source\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 1 1\" height=\"70px\"><circle class=\"source\" cx=\"50%\" cy=\"50%\" r=\"50%\" fill=\""+solution[2]+"\"/></svg></th></tr>";
+            document.getElementById("r4").innerHTML="<svg version=\"1.0\" class=\"source\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 1 1\" height=\"70px\"><circle class=\"source\" cx=\"50%\" cy=\"50%\" r=\"50%\" fill=\""+solution[3]+"\"/></svg></th></tr>";
+
+
+        }
+        function generateCheckDiv(white, black) {
+            console.log("white: " + white + ", black: " + black);
+            document.getElementById("test_" + lvl).innerHTML = "<table class=\"checkTable\"><tr><th><svg version=\"1.0\" class=\"source\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 1 1\" height=\"15px\"><circle class=\"source\" cx=\"50%\" cy=\"50%\" r=\"50%\" fill=\"" + (white + black < 1 ? "transparent" : white >= 1 ? "white" : "black") + "\"/></svg></th>" +
+                "<th><svg version=\"1.0\" class=\"source\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 1 1\" height=\"15px\"><circle class=\"source\" cx=\"50%\" cy=\"50%\" r=\"50%\" fill=\"" + (white + black < 2 ? "transparent" : white >= 2 ? "white" : "black") + "\"/></svg></th></tr>" +
+                "<tr><th><svg version=\"1.0\" class=\"source\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 1 1\" height=\"15px\"><circle class=\"source\" cx=\"50%\" cy=\"50%\" r=\"50%\" fill=\"" + (white + black < 3 ? "transparent" : white >= 3 ? "white" : "black") + "\"/></svg></th>" +
+                "<th><svg version=\"1.0\" class=\"source\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 1 1\" height=\"15px\"><circle class=\"source\" cx=\"50%\" cy=\"50%\" r=\"50%\" fill=\"" + (white + black < 4 ? "transparent" : white >= 4 ? "white" : "black") + "\"/></svg></th></tr></table>";
+
+        }
+    </script>
+</body>
+
+</html>

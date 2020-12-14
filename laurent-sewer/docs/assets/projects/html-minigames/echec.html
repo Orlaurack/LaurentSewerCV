@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Echec</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body{
+            margin:0;
+        }
+        td {
+            height: 80px;
+            width: 80px;
+            margin: 0;
+            padding: 10px;
+            display: inline-flex;
+            
+        }
+        span{
+            height: 100%;
+            width: 100%;
+            text-align: center;
+            font-size: 36pt;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+       tr{
+            margin: 0;
+            padding: 0;
+        }
+        .whitecase{
+            background:white;
+        }
+        .blackcase{
+            background:black;
+        }
+        .whitechess{
+            color:#fff;
+            background-color:#00000033;
+        }
+        .blackchess{
+            color: #000;
+            background-color:#ffffff33;
+        }
+        table{
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; 
+            table-layout: fixed;
+            border-spacing:0;
+            border-collapse: collapse;
+            margin: 0 auto;
+            padding: 0;
+        }
+        .chess:hover{
+            cursor: grab;
+            background: #44AA44;
+        }
+        .selected{
+            cursor: grabbing;
+            color:#AAAA44;
+        }
+        td.possible,td.attack,td.impossible{
+            border-width: 10px;
+            padding:0;
+            border-style: solid;
+        }
+        .possible{border-color:#00ff00;}
+        .attack{border-color:#ff0000;}
+        .impossible{border-color:#888888;}
+
+        td:hover{
+            background: #aaaaaa;
+        }
+        td.border{
+            background-color:#664400bb;
+            font-family:helvetica;
+            color:#332200ff;
+        }
+        .test{
+            background: cyan !important;
+        }
+    </style>
+
+</head>
+<body>
+<div id="chessContent" style="height: 100vh; width:100%;">
+    <table id="chessboard">
+    </table>
+</div>
+<script src="jquery.js"></script>
+<script src="daynightbackground.js"></script><script>
+    window.onload = codeAddress;
+    function codeAddress(){
+        var DNC = [{r:0,g:0,b:100},{r:0,g:100,b:200},{r:0, g:200 ,b:100},{r:0, g:100 ,b:0}];
+        var SMC = ["ffff00","ff8800","bbbbbb","888888"];
+        var MC = ["107060","305080","50f0b0","40d090","20b070","009050"];
+      initializeColors(DNC, SMC, MC);
+    }
+      
+    clicked = false;
+    lastHover = "";
+    color = "whitechess";
+
+    $(document).ready(function(){ 
+        $( window ).resize(calculSizes);
+        var letters= ["","A","B","C","D","E","F","G","H", ""];
+        
+        var array = {"pawns":'♟', "rooks":'♜', "knights":'♞',"bishops":'♝',"queen":'♛',"king":'♚'};
+        var trborder = $("<tr></tr>");
+        for (let x = 0; x < 10; x++) {
+            trborder.append($("<td></td>").addClass("border").append($("<span></span>").text(letters[x])));
+        }
+        for (let y = 0; y < 8; y++) {
+            var tr = $("<tr></tr>");
+            for (let x = 0; x < 8; x++) {
+                var td = $("<td></td>");
+                var span = $("<span></span>");
+                td.attr("data-x", x);
+                td.attr("data-y", y);
+                switch (y){
+                    case 1:
+                    case 6:
+                    span.text(array["pawns"]);
+                    span.attr("data-chess","pawns");
+                    break;
+                    case 0:
+                    case 7:
+                    switch(x){
+                        case 0:
+                        case 7:span.text(array["rooks"]);span.attr("data-chess","rooks");break;
+                        case 1:
+                        case 6:span.text(array["knights"]);span.attr("data-chess","knights");break;
+                        case 2:
+                        case 5:span.text(array["bishops"]);span.attr("data-chess","bishops");break;
+                        case 3:span.text(array["king"]);span.attr("data-chess","king");break;
+                        case 4:span.text(array["queen"]);span.attr("data-chess","queen");break;
+                    }
+                    break;
+                }
+                if(y<2){
+                    span.addClass("blackchess chess");
+                    span.attr("data-color","black");
+                    td.append(span);
+                }
+                else if(y>5){   
+                    span.addClass("whitechess chess");
+                    span.attr("data-color","white");
+                    td.append(span);
+                }
+                tr.append(td);
+            }
+            
+            tr.prepend( $("<td></td>").addClass("border").append($("<span></span>").text(y)));
+            tr.append( $("<td></td>").addClass("border").append($("<span></span>").text(y)));
+
+
+            $("#chessboard").append(tr);
+            $("tr:even td:odd").not(".border").addClass("whitecase");
+            $("tr:even td:even").not(".border").addClass("blackcase");
+            $("tr:odd td:odd").not(".border").addClass("blackcase");
+            $("tr:odd td:even").not(".border").addClass("whitecase");
+            
+        }
+        $("#chessboard").prepend(trborder);
+        $("#chessboard").append(trborder.clone( true ));
+        calculSizes();
+
+        mouseover();
+    });
+    function calculSizes(){
+        var h = $("#chessContent").height()/10;
+        var w = $("#chessContent").width()/16;
+       // var s = Math.min(w, h);    
+        s = Math.min(h, w);
+        //var border=s/8;
+        $("td").css("height", s*0.7+"px");
+        $("td").css("width", s*0.7+"px");
+        $("td").not("td.possible, td.attack, td.impossible").css("padding", s*0.15+"px "+s*0.15+"px");
+        $("td.possible, td.attack, td.impossible").css("padding", "0");
+        $("td.possible, td.attack, td.impossible").css("border-width", s*0.15+"px "+s*0.15+"px");
+        $("span").css("font-size", s*0.6+"px");
+    }
+    function calculPossible(_x, _y, chess, color){
+            var x = parseInt(_x);
+            var y = parseInt(_y);
+            arrayResult = [];
+            switch(chess){
+                case "pawns" : 
+                    attack1=caseCheck(x+1,color=="black"?(y+1):(y-1),{possible:"possible"},color);
+                    attack2=caseCheck(x-1,color=="black"?(y+1):(y-1),{possible:"possible"},color);
+                    if(attack1.possible == "attack"){
+                        arrayResult.push(attack1);
+                    }
+                    if(attack2.possible == "attack"){
+                        arrayResult.push(attack2);
+                    }
+                    if (arrayResult.length==0){
+                        move1 = caseCheck(x,color=="black"?y+1:y-1,{possible:"possible"},color);
+                        if(move1.possible != "possible"){
+                            move1.possible="impossible";
+                        }
+                        else
+                        {
+                            if((y==1&&color=="black")||(y==6&&color=="white")){
+                                move2=caseCheck(x,color=="black"?y+2:y-2,{possible:"possible"},color);
+                                if(move2.possible!="possible"){
+                                    move2.possible="impossible";
+                                }
+                                arrayResult.push(move2);
+                            }
+                        }
+                        arrayResult.push(move1);
+                    }
+                break;
+                case "rooks" :
+                    px1 = {possible:"possible"};
+                    px2 = {possible:"possible"};
+                    py1 = {possible:"possible"};
+                    py2 = {possible:"possible"};
+                    for (let i = x+1; i < 8; i++) {arrayResult.push(caseCheck(i,y,px1,color));}
+                    for (let i = x-1; i >= 0; i--) {arrayResult.push(caseCheck(i,y,px2,color));}
+                    for (let i = y+1; i < 8; i++) {arrayResult.push(caseCheck(x,i,py1,color));}
+                    for (let i = y-1; i >= 0; i--) {arrayResult.push(caseCheck(x,i,py2,color));}
+                break;
+                case "knights" : 
+                    arrayResult.push(caseCheck(x+1,y+2,{possible:"possible"},color));
+                    arrayResult.push(caseCheck(x+1,y-2,{possible:"possible"},color));
+                    arrayResult.push(caseCheck(x-1,y+2,{possible:"possible"},color));
+                    arrayResult.push(caseCheck(x-1,y-2,{possible:"possible"},color));
+                    arrayResult.push(caseCheck(x+2,y+1,{possible:"possible"},color));
+                    arrayResult.push(caseCheck(x+2,y-1,{possible:"possible"},color));
+                    arrayResult.push(caseCheck(x-2,y+1,{possible:"possible"},color));
+                    arrayResult.push(caseCheck(x-2,y-1,{possible:"possible"},color));
+                break;
+                case "bishops" : 
+                    p1 = {possible:"possible"};
+                    p2 = {possible:"possible"};
+                    p3 = {possible:"possible"};
+                    p4 = {possible:"possible"};
+                    for (let i = x+1; i < 8; i++) {
+                        e = i-x;
+                        arrayResult.push(caseCheck(i,y+(i-x),p1,color));
+                        arrayResult.push(caseCheck(i,y-(i-x),p2,color));
+                    }
+                    for (let i = x-1; i >= 0; i--) {
+                        arrayResult.push(caseCheck(i,y-x+i,p3,color));
+                        arrayResult.push(caseCheck(i,y+x-i,p4,color));
+                    }
+                break;
+                case "queen" : 
+                    p1 = {possible:"possible"};
+                    p2 = {possible:"possible"};
+                    p3 = {possible:"possible"};
+                    p4 = {possible:"possible"};
+                    p5 = {possible:"possible"};
+                    p6 = {possible:"possible"};
+                    p7 = {possible:"possible"};
+                    p8 = {possible:"possible"};
+                    
+                    for (let i = x+1; i < 8; i++) {arrayResult.push(caseCheck(i,y,p1,color));}
+                    for (let i = x-1; i >= 0; i--) {arrayResult.push(caseCheck(i,y,p2,color));}
+                    for (let i = y+1; i < 8; i++) {arrayResult.push(caseCheck(x,i,p3,color));}
+                    for (let i = y-1; i >= 0; i--) {arrayResult.push(caseCheck(x,i,p4,color));}
+
+                    for (let i = x+1; i < 8; i++) {
+                        e = i-x;
+                        arrayResult.push(caseCheck(i,y+(i-x),p5,color));
+                        arrayResult.push(caseCheck(i,y-(i-x),p6,color));
+                    }
+                    for (let i = x-1; i >= 0; i--) {
+                        arrayResult.push(caseCheck(i,y-x+i,p7,color));
+                        arrayResult.push(caseCheck(i,y+x-i,p8,color));
+                    }
+                break;
+                case "king" : 
+                    arrayResult.push(caseCheck(x+1,y+1,{possible:"possible"},color));
+                    arrayResult.push(caseCheck(x+1,y-1,{possible:"possible"},color));
+                    arrayResult.push(caseCheck(x-1,y+1,{possible:"possible"},color));
+                    arrayResult.push(caseCheck(x-1,y-1,{possible:"possible"},color));
+                    arrayResult.push(caseCheck(x,y+1,{possible:"possible"},color));
+                    arrayResult.push(caseCheck(x,y-1,{possible:"possible"},color));
+                    arrayResult.push(caseCheck(x-1,y,{possible:"possible"},color));
+                    arrayResult.push(caseCheck(x+1,y,{possible:"possible"},color));
+                break;
+            }
+            return arrayResult;
+        }
+    
+    function caseCheck(x, y, possible, colors){
+        if(x>7||y>7||x<0||y<0) return {};
+        var colord = $("td[data-x="+x+"][data-y="+y+"]").children().attr("data-color");
+        var result = "possible";
+        if(possible.possible=="impossible"||possible.possible=="attack"){
+            result = "impossible";
+            possible.possible="impossible";
+        }else{
+            if(colors==colord){//la mème couleur
+                possible.possible = "impossible";
+                result="impossible";
+            }else if((colord=="black"&&colors=="white")||(colord=="white"&&colors=="black")){//la couleur adverse
+                possible.possible = "attack";
+                result="attack";
+            }else{//pas de couleur
+                possible.possible = "possible";
+                result="possible";
+            }
+        }
+        return {x:x, y:y, possible:result};
+    }
+    
+    function paintProposed(array, color){
+        cleanProposed()
+        $.each(array, function( index, value ) {
+            proposed = $("td[data-x="+value.x+"][data-y="+value.y+"]");
+            proposed.addClass(value.possible);
+        });
+        updateDragabled();
+        
+        calculSizes();
+    }
+
+    function mouseover(){
+        $("."+color).on("mouseover",function(){
+            $("."+color).on("mousedown",function(){
+                clicked = true;
+                paintProposed(calculPossible($(this).parent().attr("data-x"), $(this).parent().attr("data-y"), $(this).attr("data-chess"), $(this).attr("data-color")),$(this).attr("data-color"))
+                lastHover = $(this);
+            });
+            if(!clicked){
+                paintProposed(calculPossible($(this).parent().attr("data-x"), $(this).parent().attr("data-y"), $(this).attr("data-chess"), $(this).attr("data-color")),$(this).attr("data-color"))
+                lastHover = $(this);
+            }
+        });
+        $("td").mousedown(function(){
+            $(this).off("mouseup");
+            $(".chess").off("mouseup");
+            $(".possible, .attack").on("mouseup", function(){
+                moveChess(lastHover, $(this));
+            });
+        
+            $("."+color).on("mouseup" , function(){
+                clicked=true;
+            });
+        });
+    }
+  
+    
+    function moveChess(src, dest){
+        if(dest.children().is("[data-chess='king']")){
+            if (dest.children().hasClass("whitechess")){
+                Win("Les noir Gagne !");
+            }else if (dest.children().hasClass("blackchess")){
+                Win("Les blanc Gagne !");
+            }else{
+                console.log("???");
+            }
+        }
+        if(dest[0].localName=="span"){
+            dest.parent().empty().append(src);
+        }
+        else
+        {
+            dest.empty().append(src);
+        }
+        $(".drag").removeClass("drag");
+        
+        $("."+color).off("mouseover");
+        $("."+color).off("mousedown");
+        
+        if(color == "whitechess") 
+        {
+            color = "blackchess";
+        }
+        else if (color == "blackchess")
+        {
+            color = "whitechess";
+        }
+        console.log(color);
+        mouseover();
+        cleanProposed();
+        calculSizes();
+    }
+    
+    function cleanProposed(){
+        $("td").each(function(index) {
+            $(this).removeClass("possible");
+            $(this).removeClass("attack");
+            $(this).removeClass("impossible");
+        });
+        $(".chess").attr("draggable", false);
+        updateDragabled();
+        clicked=false;
+    }
+   
+    function updateDragabled(){
+        $("."+color).attr("draggable","true");
+        $("."+color).attr("ondragstart","drag(event)");
+        $("td").removeAttr("ondrop");  
+        $("td").removeAttr("ondragover");
+        $(".possible, .attack").attr("ondrop", "drop(event)");  
+        $(".possible, .attack").attr("ondragover", "allowDrop(event)");
+    }
+    
+    function allowDrop(ev) {
+        ev.preventDefault();
+    }
+
+    function drag(ev) {
+        ev.dataTransfer.setData("element","drag");
+        $(".drag").removeClass("drag");
+        $(ev.target).addClass("drag");
+    }
+
+    function drop(ev) {
+        moveChess($(".drag")[0], $(ev.target))
+    }
+    function Win(msg){
+        color = "none";
+        alert(msg);
+        $("td, span").unbind();
+
+    }
+    function calcul_echec(x, y){
+
+    }
+    function rook(){
+        //if white
+            //if case 1 && 2 && 3 == vide
+            //if case 5 && 6
+    }
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Casse Brique</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body, svg {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            width: 100%;
+		}
+		body{
+			background-color: #04080f;
+		}
+        svg{
+            position: absolute;
+		}
+		#bar{
+			fill: #f0f0f0;
+			margin-top: 10px;
+		}
+    </style>
+    <script src="jquery.js"></script>
+</head>
+<body>
+    <svg id="brick">
+    </svg>
+    <svg id="ball">
+        <circle cx="50%" cy="90%" r="1.7%" fill="red" />
+    </svg>
+    <svg id="bar">
+        <rect x="45%" y="92%" width="10%" height="20"/>
+    </svg>
+    <script>
+        var pause = false;
+        var barPosition = 0;
+        var xSpeed = 0;
+        var ySpeed = 0;
+        var xCoord = 50;
+        var yCoord = 90;
+        var direction = 0;
+        var life = 3;
+        var interval;
+        //constantes
+        var NUM_BRICK_VERTICAL = 10;
+        var NUM_BRICK_HORIZONTAL = 10;
+        var BRICK_HEIGHT = 50;
+        var BRICK_WIDTH = $( window ).width() / 10;
+        var RAYON_BALL = 3;
+        var MAX_SPEED = 8;
+        var SPEED_BASE = 1;
+        var BAR_POSITION_MAX = 45;
+        var DEFAULT_Y = 90;
+        var DEFAULT_X = 50;
+        var DEFAULT_SPEED = 0;
+        var SPEED_BAR = 1;
+        var FPS = 1000/60;
+        $( document ).ready(function() {
+            interval = setInterval(move, FPS);
+            for (y=0;y<10;y++){
+                for (x=0;x<10;x++){
+                    $("#brick").append(
+                        $(document.createElementNS("http://www.w3.org/2000/svg", "rect")).attr({
+                            "x": x*BRICK_WIDTH,
+                            "y": y*BRICK_HEIGHT,
+                            "width": BRICK_WIDTH,
+                            "height": BRICK_HEIGHT, 
+                            "data-x":x,
+                            "data-y":y,
+                            style: "fill:"+RngColor(),
+                            
+                        }).addClass("new")
+                    );
+                }
+            }
+            for (let i = 0; i < $(".new").length; i++) {
+                var el = $(".new")[parseInt(Math.random()*$(".new").length)];
+                $(el).attr("style","fill:"+ RngColor());
+                $(el).removeClass("new");
+               
+            }
+        });
+        function RngColor() {
+            var letters = '0123456789ABCDEF';
+            var color = '#';
+            for (var i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+
+        function collisionPointRect(point, rect){
+            return (rect.x<point.x&&rect.x+rect.w>point.x&&rect.y<point.y&&rect.y+rect.h>point.y)
+        }
+        function collision(circle, box){
+
+            var a = (circle.x - circle.r < box.x + box.w) && (circle.x + circle.r > box.x);
+            var b = (circle.y - circle.r < box.y + box.h) && (circle.y + circle.r > box.y);
+
+            if(a&&b){
+                var u = collisionPointRect({x:circle.x,y:circle.y-(circle.r+10)}, box);
+                var l = collisionPointRect({x:circle.x+(circle.r+10),y:circle.y}, box);
+                var d = collisionPointRect({x:circle.x,y:circle.y+(circle.r+10)}, box);
+                var r = collisionPointRect({x:circle.x-(circle.r+10),y:circle.y}, box);
+
+                if(u&&!d) ySpeed = Math.abs(ySpeed);
+                if(d&&!u) ySpeed = -Math.abs(ySpeed);
+                if(l&&!r) xSpeed = -Math.abs(xSpeed);
+                if(r&&!l) xSpeed = Math.abs(xSpeed);
+                return true; 
+            }
+            else {
+                return false;
+            }
+        }
+
+        function calculCollision(){
+            var boxCercle = {
+                x:(xCoord)*$(window).width()/100,
+                y:(yCoord)*$(window).height()/100,
+                r:RAYON_BALL
+            };
+
+            if(yCoord!=90){
+                $("#brick rect").not(".broke").each(function (i,bricks) { 
+                    var brick = {
+                        x:parseInt($(bricks).attr("x")), 
+                        w:BRICK_WIDTH,
+                        y:parseInt($(bricks).attr("y")),
+                        h:BRICK_HEIGHT
+                    };
+
+                    if(pause){
+                        //console.log("brick: x"+brick.x+", w"+brick.w);
+                    }
+                    if(collision(boxCercle, brick)){
+                        $(bricks).css("fill", "#080F18");
+                        $(bricks).addClass("broke");
+                    }
+                });
+            }
+        }
+        
+        function lunchBall(){
+            var diff = (barPosition+50.1) - xCoord;
+            ySpeed = -SPEED_BASE;
+            xSpeed = -diff/5;
+        }
+
+        $("body").keydown(function(e) {
+            if(e.keyCode == 37) { // left
+                direction = -1;
+            }
+            else if(e.keyCode == 39) { // right
+                direction = 1;
+            }else if(e.keyCode == 32){
+                if(yCoord==90&&ySpeed==0){
+                    lunchBall();
+                }
+            }
+            else if(e.keyCode ==27){
+                pause=!pause;
+                move();
+                if(pause){
+                    clearInterval(interval);
+                }else{
+                    interval = setInterval(move, FPS);
+                }
+            }
+        });
+        $("body").keyup(function(e) {
+            if(e.keyCode == 37 || e.keyCode == 39) { // right
+                direction = 0;
+            }
+        });
+
+        function move(){
+            barPosition+=(direction)*SPEED_BAR;
+            if(barPosition < -BAR_POSITION_MAX){
+                barPosition = -BAR_POSITION_MAX;
+            }else if(barPosition > BAR_POSITION_MAX){
+                barPosition = BAR_POSITION_MAX;
+            }
+            Update();
+        }   
+        function Update(){
+            $("#bar rect").attr("x", 45+barPosition+"%");
+            if(yCoord==90&&ySpeed == 0){
+                if((barPosition+45)+10<xCoord){
+                    xCoord = (barPosition+45)+10;
+                }
+                if((barPosition+45)>xCoord){
+                    xCoord = (barPosition+45);
+                }
+            }
+            if(xCoord<RAYON_BALL||xCoord>100-RAYON_BALL)xSpeed= -xSpeed;
+            
+            if(yCoord<0)ySpeed= -ySpeed;
+            if(yCoord>90&&yCoord<93){
+                var diff = (barPosition+50) - xCoord;
+                if(Math.abs(diff)<6){
+                    ySpeed= -Math.abs(ySpeed);
+                    xSpeed= -diff/5;
+                }
+            }
+            if(yCoord>100){
+                yCoord = DEFAULT_Y;
+                xCoord = DEFAULT_X;
+                ySpeed = DEFAULT_SPEED;
+                xSpeed = DEFAULT_SPEED;
+                barPosition = 0;
+                life--;
+                if(life==0){
+                    console.log("Game Over !")
+                    GameOVER();
+                }
+            }
+          
+            xCoord+=xSpeed;
+            yCoord+=ySpeed;
+            $("#ball circle").attr("cx", xCoord+"%");
+            $("#ball circle").attr("cy", yCoord+"%");
+            
+            calculCollision();
+        }
+        function GameOVER(){
+            clearInterval(interval);
+        }
+
+    </script>
+</body>
+</html>
